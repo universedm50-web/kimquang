@@ -2010,3 +2010,46 @@ input, select, textarea { font-family: var(--font); outline: none; }
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================================================
+   LANGUAGE SELECTOR
+   ========================================================= */
+.lang-selector {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 2px 4px;
+    margin-right: 8px;
+    transition: all 0.3s;
+}
+.header.scrolled .lang-selector {
+    background: var(--light);
+    border-color: var(--border);
+}
+.lang-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+.lang-btn:hover {
+    color: var(--white);
+}
+.lang-btn.active {
+    background: var(--green);
+    color: var(--white) !important;
+}
+.header.scrolled .lang-btn {
+    color: var(--muted);
+}
+.header.scrolled .lang-btn:hover {
+    color: var(--dark);
+}

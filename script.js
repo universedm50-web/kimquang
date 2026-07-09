@@ -281,6 +281,9 @@
 
         window._currentProduct = prod.name;
         navigateTo('product-detail');
+        if (typeof currentLang !== 'undefined' && currentLang !== 'vi' && typeof translateDOM === 'function') {
+            translateDOM(document.getElementById('page-product-detail'), currentLang);
+        }
     };
 
     // ── Product Filter (Products Page) ────────────────────────
@@ -365,6 +368,9 @@
         document.getElementById('art-cover-img').src = art.cover;
         document.getElementById('art-body').innerHTML = art.body;
         navigateTo('article');
+        if (typeof currentLang !== 'undefined' && currentLang !== 'vi' && typeof translateDOM === 'function') {
+            translateDOM(document.getElementById('page-article'), currentLang);
+        }
     };
 
     // ── News Filter ───────────────────────────────────────────
@@ -512,13 +518,39 @@
         const monthlyBill = parseInt(billInput.value, 10);
         const model = modelInput.value;
         
+        // Dynamic labels based on language
+        let billText = monthlyBill + ' Tr VNĐ';
+        let areaText = `Diện tích mái yêu cầu: ~${(capacity * 6.5).toLocaleString('vi-VN')} m²`;
+        let unitBillion = ' Tỷ';
+        let unitVND = ' VNĐ';
+        let unitYear = ' năm';
+        let unitPerYear = '/năm';
+        let instantText = 'Tức thì (0 năm)';
+        
+        if (typeof currentLang !== 'undefined') {
+            if (currentLang === 'en') {
+                billText = monthlyBill + ' M VND';
+                areaText = `Required roof area: ~${(capacity * 6.5).toLocaleString('en-US')} m²`;
+                unitBillion = ' B VND';
+                unitVND = ' VND';
+                unitYear = ' years';
+                unitPerYear = '/year';
+                instantText = 'Instant (0 years)';
+            } else if (currentLang === 'zh') {
+                billText = monthlyBill + ' 百万越盾';
+                areaText = `所需屋顶面积: ~${(capacity * 6.5).toLocaleString('zh-CN')} m²`;
+                unitBillion = ' 十亿越盾';
+                unitVND = ' 越盾';
+                unitYear = ' 年';
+                unitPerYear = '/年';
+                instantText = '即时 (0年)';
+            }
+        }
+        
         // Update input label displays
         document.getElementById('calc-capacity-val').textContent = capacity + ' kWp';
-        document.getElementById('calc-bill-val').textContent = monthlyBill + ' Tr VNĐ';
-        
-        // Estimate roof area needed (~6.5 m2 per kWp)
-        const area = capacity * 6.5;
-        document.getElementById('calc-area-val').textContent = `Diện tích mái yêu cầu: ~${area.toLocaleString('vi-VN')} m²`;
+        document.getElementById('calc-bill-val').textContent = billText;
+        document.getElementById('calc-area-val').textContent = areaText;
         
         // Calculations variables
         let capexBefore, capexAfter;
@@ -559,27 +591,32 @@
             savingsAfter = (savingsPerMonth * 12 * 20) * 0.20; // Million VND
             
             // Formatting displays
-            document.getElementById('capex-before').textContent = capexBefore.toFixed(2) + ' Tỷ';
-            document.getElementById('capex-after').textContent = '0 VNĐ';
+            document.getElementById('capex-before').textContent = capexBefore.toFixed(2) + unitBillion;
+            document.getElementById('capex-after').textContent = '0' + unitVND;
             document.getElementById('rate-before').textContent = 'N/A';
             document.getElementById('rate-after').textContent = 'N/A';
-            document.getElementById('payback-before').textContent = paybackBefore.toFixed(1) + ' năm';
-            document.getElementById('payback-after').textContent = 'Tức thì (0 năm)';
-            document.getElementById('savings-before').textContent = (savingsBefore / 1000).toFixed(2) + ' Tỷ';
-            document.getElementById('savings-after').textContent = (savingsAfter / 1000).toFixed(2) + ' Tỷ';
+            document.getElementById('payback-before').textContent = paybackBefore.toFixed(1) + unitYear;
+            document.getElementById('payback-after').textContent = instantText;
+            document.getElementById('savings-before').textContent = (savingsBefore / 1000).toFixed(2) + unitBillion;
+            document.getElementById('savings-after').textContent = (savingsAfter / 1000).toFixed(2) + unitBillion;
             
             // Visual cumulative bars
             updateBars(savingsBefore, savingsAfter);
             
             // Summary text
-            const diffSavings = savingsAfter - 0; // infinite multiplier, let's describe savings
-            document.getElementById('calc-summary-text').innerHTML = 
-                `Nhờ giải pháp <strong>ESCO/PPA</strong>, bạn được tài trợ <strong>100%</strong> vốn đầu tư ban đầu trị giá <strong>${capexTotal.toFixed(2)} Tỷ VNĐ</strong>. Bạn tiết kiệm ngay <strong>${(savingsAfter / 240).toFixed(1)} Tr VNĐ/tháng</strong> (tương đương <strong>${(savingsAfter/1000).toFixed(2)} Tỷ</strong> sau 20 năm) từ ngày đầu tiên mà không chịu bất kỳ rủi ro kỹ thuật nào.`;
+            if (typeof currentLang !== 'undefined' && currentLang === 'en') {
+                document.getElementById('calc-summary-text').innerHTML = 
+                    `Thanks to the <strong>ESCO/PPA</strong> model, you receive <strong>100%</strong> initial investment worth <strong>${capexTotal.toFixed(2)} Billion VND</strong>. You save <strong>${(savingsAfter / 240).toFixed(1)} M VND/month</strong> (equivalent to <strong>${(savingsAfter/1000).toFixed(2)} Billion</strong> after 20 years) from day one with zero technical risk.`;
+            } else if (typeof currentLang !== 'undefined' && currentLang === 'zh') {
+                document.getElementById('calc-summary-text').innerHTML = 
+                    `得益于 <strong>ESCO/PPA</strong> 模式，您将获得 <strong>100%</strong> 的初始资金支持，价值 <strong>${capexTotal.toFixed(2)} 十亿越盾</strong>。从第一天起，您每月即可节省 <strong>${(savingsAfter / 240).toFixed(1)} 百万越盾</strong>（20年后累计节省 <strong>${(savingsAfter/1000).toFixed(2)} 十亿</strong>），且无需承担任何技术风险。`;
+            } else {
+                document.getElementById('calc-summary-text').innerHTML = 
+                    `Nhờ giải pháp <strong>ESCO/PPA</strong>, bạn được tài trợ <strong>100%</strong> vốn đầu tư ban đầu trị giá <strong>${capexTotal.toFixed(2)} Tỷ VNĐ</strong>. Bạn tiết kiệm ngay <strong>${(savingsAfter / 240).toFixed(1)} Tr VNĐ/tháng</strong> (tương đương <strong>${(savingsAfter/1000).toFixed(2)} Tỷ</strong> sau 20 năm) từ ngày đầu tiên mà không chịu bất kỳ rủi ro kỹ thuật nào.`;
+            }
             
         } else {
             // Green Loan Mode
-            // Before: 50% own capital + 50% bank loan at 10.5% interest
-            // After: 20% own capital + 80% green credit loan at 7.5% interest
             capexBefore = capexTotal * 0.50; // Capital required upfront
             capexAfter = capexTotal * 0.20;
             
@@ -587,35 +624,41 @@
             rateAfter = '7.5%';
             
             // Payback periods
-            // Before: higher interest rate increases payback time
-            paybackBefore = (capexTotal * 1000) / (savingsPerMonth * 12 * 0.85); // 0.85 multiplier represents high interest/O&M drags
-            paybackAfter = (capexTotal * 1000) / (savingsPerMonth * 12 * 0.95);  // 0.95 due to lower interest rate and professional EPC
+            paybackBefore = (capexTotal * 1000) / (savingsPerMonth * 12 * 0.85);
+            paybackAfter = (capexTotal * 1000) / (savingsPerMonth * 12 * 0.95);
             
-            // Let's add slight variations for realism
             paybackBefore = Math.max(paybackBefore, 6.2);
             paybackAfter = Math.max(paybackAfter - 1.5, 4.2);
             
-            // 20-Year savings (in Million VND)
-            // After: Green loan savings are higher due to lower interest (approx 15% interest savings) and higher EPC efficiency (+7% output)
-            savingsBefore = (savingsPerMonth * 12 * 20) - (capexTotal * 1000) - (capexTotal * 1000 * 0.45); // high interest drag
-            savingsAfter = (savingsPerMonth * 12 * 20 * 1.07) - (capexTotal * 1000) - (capexTotal * 1000 * 0.20); // low interest drag + high efficiency
+            // 20-Year savings
+            savingsBefore = (savingsPerMonth * 12 * 20) - (capexTotal * 1000) - (capexTotal * 1000 * 0.45);
+            savingsAfter = (savingsPerMonth * 12 * 20 * 1.07) - (capexTotal * 1000) - (capexTotal * 1000 * 0.20);
             
-            document.getElementById('capex-before').textContent = capexBefore.toFixed(2) + ' Tỷ';
-            document.getElementById('capex-after').textContent = capexAfter.toFixed(2) + ' Tỷ';
-            document.getElementById('rate-before').textContent = rateBefore + '/năm';
-            document.getElementById('rate-after').textContent = rateAfter + '/năm';
-            document.getElementById('payback-before').textContent = paybackBefore.toFixed(1) + ' năm';
-            document.getElementById('payback-after').textContent = paybackAfter.toFixed(1) + ' năm';
-            document.getElementById('savings-before').textContent = (savingsBefore / 1000).toFixed(2) + ' Tỷ';
-            document.getElementById('savings-after').textContent = (savingsAfter / 1000).toFixed(2) + ' Tỷ';
+            document.getElementById('capex-before').textContent = capexBefore.toFixed(2) + unitBillion;
+            document.getElementById('capex-after').textContent = capexAfter.toFixed(2) + unitBillion;
+            document.getElementById('rate-before').textContent = rateBefore + unitPerYear;
+            document.getElementById('rate-after').textContent = rateAfter + unitPerYear;
+            document.getElementById('payback-before').textContent = paybackBefore.toFixed(1) + unitYear;
+            document.getElementById('payback-after').textContent = paybackAfter.toFixed(1) + unitYear;
+            document.getElementById('savings-before').textContent = (savingsBefore / 1000).toFixed(2) + unitBillion;
+            document.getElementById('savings-after').textContent = (savingsAfter / 1000).toFixed(2) + unitBillion;
             
             updateBars(savingsBefore, savingsAfter);
             
             const capexSaved = capexBefore - capexAfter;
             const rateDiff = 3.0;
             const yearsDiff = paybackBefore - paybackAfter;
-            document.getElementById('calc-summary-text').innerHTML = 
-                `Nhờ Môi giới kết nối Quỹ xanh, bạn giảm được <strong>${capexSaved.toFixed(2)} Tỷ VNĐ</strong> vốn tự có đối ứng ban đầu, lãi suất vay giảm <strong>${rateDiff.toFixed(1)}%</strong> và rút ngắn <strong>${yearsDiff.toFixed(1)} năm</strong> thời gian hoàn vốn (Chênh lệch lợi nhuận 20 năm đạt <strong>${((savingsAfter - savingsBefore)/1000).toFixed(2)} Tỷ VNĐ</strong>).`;
+            
+            if (typeof currentLang !== 'undefined' && currentLang === 'en') {
+                document.getElementById('calc-summary-text').innerHTML = 
+                    `Through our green credit matchmaking, your upfront equity is reduced by <strong>${capexSaved.toFixed(2)} Billion VND</strong>, loan interest rate drops by <strong>${rateDiff.toFixed(1)}%</strong> and payback period is shortened by <strong>${yearsDiff.toFixed(1)} years</strong> (20-year net benefit difference reaches <strong>${((savingsAfter - savingsBefore)/1000).toFixed(2)} Billion VND</strong>).`;
+            } else if (typeof currentLang !== 'undefined' && currentLang === 'zh') {
+                document.getElementById('calc-summary-text').innerHTML = 
+                    `通过绿色信贷经纪对接，您的自筹首付资金减少了 <strong>${capexSaved.toFixed(2)} 十亿越盾</strong>，贷款利率降低了 <strong>${rateDiff.toFixed(1)}%</strong>，投资回收期缩短了 <strong>${yearsDiff.toFixed(1)} 年</strong>（20年累计收益差额达 <strong>${((savingsAfter - savingsBefore)/1000).toFixed(2)} 十亿越盾</strong>）。`;
+            } else {
+                document.getElementById('calc-summary-text').innerHTML = 
+                    `Nhờ Môi giới kết nối Quỹ xanh, bạn giảm được <strong>${capexSaved.toFixed(2)} Tỷ VNĐ</strong> vốn tự có đối ứng ban đầu, lãi suất vay giảm <strong>${rateDiff.toFixed(1)}%</strong> và rút ngắn <strong>${yearsDiff.toFixed(1)} năm</strong> thời gian hoàn vốn (Chênh lệch lợi nhuận 20 năm đạt <strong>${((savingsAfter - savingsBefore)/1000).toFixed(2)} Tỷ VNĐ</strong>).`;
+            }
         }
     };
     
@@ -652,7 +695,238 @@
         el.style.alignItems = 'center';
     }
     
-    // Auto-calculate on initial load of the page
-    setTimeout(() => { calculateROI(); }, 500);
+    // ── Translation Dictionary and Engine ───────────────────
+    window.currentLang = 'vi';
+    
+    const DICTIONARY = {
+        // Nav Header
+        "Trang Chủ": { en: "Home", zh: "首页" },
+        "Giới Thiệu": { en: "About Us", zh: "关于我们" },
+        "Sản Phẩm": { en: "Products", zh: "产品中心" },
+        "Tấm Pin Năng Lượng": { en: "Solar Panels", zh: "太阳能电池板" },
+        "Inverter (Biến Tần)": { en: "Inverters", zh: "逆变器" },
+        "Pin Lưu Trữ": { en: "Battery Storage", zh: "储能电池" },
+        "Phụ Kiện Thi Công": { en: "Mounting Accessories", zh: "安装配件" },
+        "Giải Thế": { en: "Solutions", zh: "解决方案" },
+        "Giải Pháp": { en: "Solutions", zh: "解决方案" },
+        "Doanh nghiệp & Nhà máy": { en: "C&I and Factories", zh: "工商业及工厂" },
+        "Hộ Gia Đình": { en: "Residential", zh: "家用及户用" },
+        "Nông Nghiệp": { en: "Agriculture", zh: "农业应用" },
+        "Đầu Tư Môi Giới": { en: "Investment & Broker", zh: "投资与经纪" },
+        "Giải pháp ESCO/PPA": { en: "ESCO/PPA Solutions", zh: "ESCO/PPA 解决方案" },
+        "Kết nối Quỹ tín dụng xanh": { en: "Green Loan Matching", zh: "对接绿色信贷基金" },
+        "Đòn bẩy EPC & O&M": { en: "EPC & O&M Leverage", zh: "EPC与O&M杠杆" },
+        "Dự Án": { en: "Projects", zh: "示范项目" },
+        "Tin Tức": { en: "News", zh: "新闻动态" },
+        "Liên Hệ": { en: "Contact Us", zh: "联系我们" },
+        "Nhận Báo Giá": { en: "Get Quote", zh: "获取报价" },
+        "Năng lượng · Tỏa sáng": { en: "Energy · Shine", zh: "能量 · 闪耀" },
+        
+        // Buttons & Forms
+        "Xem tất cả": { en: "View All", zh: "查看全部" },
+        "Đọc tiếp": { en: "Read More", zh: "阅读更多" },
+        "Quay Lại Tin Tức": { en: "Back to News", zh: "返回新闻" },
+        "Gửi Yêu Cầu Tư Vấn": { en: "Submit Request", zh: "提交咨询申请" },
+        "Gửi Yêu Cầu": { en: "Submit Request", zh: "提交申请" },
+        "Liên Hệ Nhận Báo Giá": { en: "Contact for Quote", zh: "联系获取报价" },
+        "Tìm hiểu thêm": { en: "Learn More", zh: "了解更多" },
+        "Nhận Tư Vấn Miễn Phí": { en: "Get Free Consultation", zh: "获取免费咨询" },
+        "Xem Hồ Sơ Năng Lực": { en: "View Portfolio", zh: "查看公司画册" },
+        "Khám Phá Giải Pháp": { en: "Explore Solutions", zh: "探索解决方案" },
+        "Xem video thực tế": { en: "Watch Real Video", zh: "观看实景视频" },
+        "Nhận Tư Vấn ESCO": { en: "Get ESCO Consult", zh: "咨询 ESCO 方案" },
+        "Kết Nối Với Quỹ Xanh": { en: "Connect with Green Funds", zh: "对接绿色基金" },
+        "Đăng Ký Khảo Sát EPC": { en: "Request EPC Survey", zh: "申请 EPC 勘测" },
+        "Khảo sát miễn phí": { en: "Free Survey", zh: "免费上门勘测" },
+        "Gửi liên hệ": { en: "Submit", zh: "提交" },
+        "Hủy": { en: "Cancel", zh: "取消" },
+        
+        // Products Filters sidebar
+        "Bộ Lọc": { en: "Filters", zh: "筛选条件" },
+        "Đặt Lại": { en: "Reset", zh: "重置" },
+        "Tìm Kiếm": { en: "Search", zh: "搜索" },
+        "Nhóm Sản Phẩm": { en: "Category", zh: "产品类别" },
+        "Thương Hiệu": { en: "Brand", zh: "品牌" },
+        "Trạng Thái": { en: "Status", zh: "状态" },
+        "Tấm Pin": { en: "Solar Panels", zh: "太阳能电池板" },
+        "Inverter": { en: "Inverters", zh: "逆变器" },
+        "Pin Lưu Trữ": { en: "Battery Storage", zh: "储能电池" },
+        "Phụ Kiện": { en: "Accessories", zh: "安装配件" },
+        "Bán Chạy": { en: "Best Sellers", zh: "畅销产品" },
+        "Mới Ra Mắt": { en: "New Arrivals", zh: "新品上市" },
+        "Hot": { en: "Hot", zh: "热门" },
+        "Bán chạy": { en: "Best Seller", zh: "畅销" },
+        "Mới": { en: "New", zh: "新品" },
+        "Mặc định": { en: "Default", zh: "默认排序" },
+        "Tên A → Z": { en: "Name A → Z", zh: "名称 A → Z" },
+        "Tên Z → A": { en: "Name Z → A", zh: "名称 Z → A" },
+        "Hiển thị": { en: "Showing", zh: "显示" },
+        "sản phẩm": { en: "products", zh: "个产品" },
+        "Không tìm thấy sản phẩm nào phù hợp.": { en: "No matching products found.", zh: "未找到匹配的产品。" },
+        "Xóa Bộ Lọc": { en: "Clear Filters", zh: "清除筛选" },
+        
+        // Stats
+        "MWp Đã Lắp Đặt": { en: "MWp Installed", zh: "已安装容量 (MWp)" },
+        "Dự Án Hoàn Thành": { en: "Projects Completed", zh: "已落成项目" },
+        "Kinh Nghiệm": { en: "Years Experience", zh: "行业经验 (年)" },
+        "Tấn CO₂ Giảm Thiểu": { en: "Tons CO₂ Reduced", zh: "CO₂ 减排量 (吨)" },
+        "năm": { en: "years", zh: "年" },
+        
+        // About Section Headers
+        "VỀ CHÚNG TÔI": { en: "ABOUT US", zh: "关于我们" },
+        "Tổng Thầu EPC Uy Tín Số 1": { en: "Top 1 Reputable EPC Contractor", zh: "行业领先的首选 EPC 总包商" },
+        "GIẢI PHÁP": { en: "SOLUTIONS", zh: "解决方案" },
+        "DỰ ÁN": { en: "PROJECTS", zh: "示范项目" },
+        "Dấu Ấn Trên Mọi Miền": { en: "Our Footprints Across Regions", zh: "我们在各地区的足迹" },
+        "GIÁ TRỊ CỐT LÕI": { en: "CORE VALUES", zh: "核心价值观" },
+        "Tại Sao Chọn GreenTech Solar?": { en: "Why Choose GreenTech Solar?", zh: "为什么选择 GreenTech Solar?" },
+        
+        // Investment Calculator
+        "BỘ TÍNH TOÁN": { en: "ROI CALCULATOR", zh: "投资回报计算器" },
+        "Ước Tính Hiệu Quả Đầu Tư & Tiết Kiệm": { en: "Investment & Savings Calculator", zh: "投资与效益估算" },
+        "Nhập thông tin dự án để thấy rõ sự chênh lệch lợi ích tài chính trước và sau khi có môi giới/quỹ xanh.": { 
+            en: "Enter project details to see the difference in financial benefits before and after green brokerage.", 
+            zh: "输入项目配置，直观查看绿色金融经纪介入前后的财务效益差异。" 
+        },
+        "Cấu Hình Dự Án": { en: "Project Config", zh: "项目配置" },
+        "Công suất lắp đặt:": { en: "Installed Capacity:", zh: "装机容量:" },
+        "Tiền điện TB hàng tháng:": { en: "Avg Monthly Electric Bill:", zh: "平均月度电费:" },
+        "Mô hình đầu tư mong muốn:": { en: "Desired Investment Model:", zh: "期望投资模式:" },
+        "Tự Đầu Tư (Vay tín dụng xanh ưu đãi)": { en: "Self-Invest (Green loan)", zh: "自主投资 (绿色优惠贷款)" },
+        "Hợp tác ESCO / PPA (Vốn đầu tư 0đ)": { en: "ESCO / PPA (0 VND Capital)", zh: "ESCO / PPA 合作 (0元初始投入)" },
+        "So Sánh Hiệu Quả": { en: "Benefits Comparison", zh: "效益对比" },
+        "TRƯỚC MÔI GIỚI": { en: "BEFORE BROKER", zh: "经纪介入前" },
+        "(Tự liên hệ / Tự đầu tư)": { en: "(Self-directed)", zh: "(自行投资 / 自筹资金)" },
+        "SAU MÔI GIỚI": { en: "AFTER BROKER", zh: "经纪介入后" },
+        "(Qua GreenTech Broker)": { en: "(Via GreenTech Broker)", zh: "(通过绿色经纪)" },
+        "Vốn tự có ban đầu": { en: "Equity Required", zh: "自筹初始资金" },
+        "Lãi suất vay vốn": { en: "Loan Interest Rate", zh: "贷款年利率" },
+        "Thời gian hoàn vốn": { en: "Payback Period", zh: "投资回收期" },
+        "Lãi lũy kế 20 năm": { en: "20-Year Cum. Savings", zh: "20年累计净收益" },
+        "Dòng tiền tích lũy chênh lệch theo thời gian (Tr VNĐ)": { 
+            en: "Cumulative Savings Over Time (Million VND)", 
+            zh: "不同时期的累计收益对比 (百万越盾)" 
+        },
+        
+        // Form Placeholders & Labels
+        "Họ và Tên *": { en: "Full Name *", zh: "姓名 *" },
+        "Số Điện Thoại *": { en: "Phone Number *", zh: "电话号码 *" },
+        "Loại Công Trình *": { en: "Building Type *", zh: "建筑类型 *" },
+        "Nội Dung": { en: "Message / Notes", zh: "需求描述" },
+        "-- Chọn loại công trình --": { en: "-- Select Building Type --", zh: "-- 请选择建筑类型 --" },
+        "Nhà máy / Công nghiệp": { en: "Factory / Industrial", zh: "工厂 / 工业厂房" },
+        "Hộ gia đình": { en: "Household / Residential", zh: "住宅 / 户用" },
+        "Nông nghiệp / Trang trại": { en: "Agriculture / Farm", zh: "农业 / 农场" },
+        "Khác": { en: "Other", zh: "其它" },
+        "Mô tả nhu cầu, diện tích mái, vị trí lắp đặt...": { 
+            en: "Describe your needs, roof area, location...", 
+            zh: "请描述您的需求、屋顶面积、安装位置..." 
+        },
+        "Sản phẩm quan tâm": { en: "Product of Interest", zh: "感兴趣的产品" },
+        "Nhu Cầu / Ghi Chú": { en: "Your Notes / Inquiries", zh: "其它备注/要求" },
+        "Công suất cần lắp, vị trí, câu hỏi...": { 
+            en: "Capacity needed, location, questions...", 
+            zh: "所需装机容量、位置、咨询 vấn..." 
+        },
+        "Điền thông tin — chuyên gia sẽ gọi lại trong 30 phút": { 
+            en: "Fill in the form — our expert will call you within 30 minutes", 
+            zh: "填写表单 — 我们的专家将在30分钟内给您回电" 
+        },
+        
+        // Dynamic Product details
+        "Ưu Điểm Nổi Bật": { en: "Key Highlights", zh: "产品核心优势" },
+        "Mã sản phẩm:": { en: "Product Code:", zh: "产品编码:" },
+        "Hàng chính hãng 100%": { en: "100% Genuine Product", zh: "100% 正品保障" },
+        "Giao hàng toàn quốc": { en: "Nationwide Delivery", zh: "全国配送" },
+        "Hỗ trợ kỹ thuật 24/7": { en: "24/7 Technical Support", zh: "24/7 技术支持" },
+        "Mã SP:": { en: "SKU:", zh: "型号:" },
+        "Dung lượng": { en: "Capacity", zh: "容量" },
+        "Điện áp danh định": { en: "Nominal Voltage", zh: "额定电压" },
+        "Chiều sâu xả (DoD)": { en: "Depth of Discharge (DoD)", zh: "放电深度 (DoD)" },
+        "Tuổi thọ chu kỳ": { en: "Cycle Life", zh: "循环寿命" },
+        "Hiệu suất vòng": { en: "Round-trip Efficiency", zh: "往返效率" },
+        "Chuẩn bảo vệ": { en: "Protection Class", zh: "防护等级" },
+        "Nhiệt độ hoạt động": { en: "Operating Temp", zh: "工作温度" },
+        "Bảo hành": { en: "Warranty", zh: "质保" },
+        "Vật liệu": { en: "Material", zh: "材料" },
+        "Chiều dài": { en: "Length", zh: "长度" },
+        "Kích thước mặt cắt": { en: "Cross Section Size", zh: "截面尺寸" },
+        "Tải trọng tối đa": { en: "Max Load", zh: "最大负载" },
+        "Màu sắc": { en: "Color", zh: "颜色" },
+        "Tiêu chuẩn": { en: "Standards", zh: "认证标准" },
+        "Bảo hành hiệu suất": { en: "Performance Warranty", zh: "线性功率保修" },
+        "Bảo hành sản phẩm": { en: "Product Warranty", zh: "产品保修" },
+        "Công suất định mức": { en: "Rated Power", zh: "额定功率" },
+        "Hiệu suất": { en: "Module Efficiency", zh: "组件效率" },
+        "Điện áp hở mạch (Voc)": { en: "Open Circuit Voltage (Voc)", zh: "开路电压 (Voc)" },
+        "Dòng ngắn mạch (Isc)": { en: "Short Circuit Current (Isc)", zh: "短路电流 (Isc)" },
+        "Kích thước": { en: "Dimensions", zh: "尺寸" },
+        "Trọng lượng": { en: "Weight", zh: "重量" }
+    };
+
+    function translateDOM(element, lang) {
+        if (!element) return;
+        if (element.nodeType === 3) { // TEXT_NODE
+            const text = element.textContent.trim();
+            if (!text) return;
+            
+            if (element._originalText === undefined) {
+                element._originalText = element.textContent;
+            }
+            
+            const cleanKey = element._originalText.trim().replace(/\s+/g, ' ');
+            if (DICTIONARY[cleanKey] && DICTIONARY[cleanKey][lang]) {
+                const leading = element._originalText.match(/^\s*/)[0];
+                const trailing = element._originalText.match(/\s*$/)[0];
+                element.textContent = leading + DICTIONARY[cleanKey][lang] + trailing;
+            } else if (lang === 'vi') {
+                element.textContent = element._originalText;
+            }
+        } else {
+            // Translate placeholders
+            if (element.placeholder) {
+                if (element._originalPlaceholder === undefined) {
+                    element._originalPlaceholder = element.placeholder;
+                }
+                const cleanKey = element._originalPlaceholder.trim().replace(/\s+/g, ' ');
+                if (DICTIONARY[cleanKey] && DICTIONARY[cleanKey][lang]) {
+                    element.placeholder = DICTIONARY[cleanKey][lang];
+                } else if (lang === 'vi') {
+                    element.placeholder = element._originalPlaceholder;
+                }
+            }
+            // Recurse children
+            if (element.tagName !== 'SCRIPT' && element.tagName !== 'STYLE') {
+                element.childNodes.forEach(child => translateDOM(child, lang));
+            }
+        }
+    }
+
+    window.changeLanguage = function (lang) {
+        window.currentLang = lang;
+        localStorage.setItem('preferredLang', lang);
+        
+        // Update active class on buttons
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.lang === lang);
+        });
+        
+        // Translate entire body
+        translateDOM(document.body, lang);
+        
+        // Re-run calculateROI to update calculator text
+        if (typeof calculateROI === 'function') {
+            calculateROI();
+        }
+    };
+
+    // Load preferred lang and auto-calculate on initial load
+    setTimeout(() => { 
+        calculateROI(); 
+        const savedLang = localStorage.getItem('preferredLang') || 'vi';
+        if (savedLang !== 'vi') {
+            changeLanguage(savedLang);
+        }
+    }, 500);
 
 })();
