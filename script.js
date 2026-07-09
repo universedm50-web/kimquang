@@ -685,8 +685,21 @@
         if (!el) return;
         const percentage = Math.max(5, (val / max) * 100);
         el.style.width = percentage.toFixed(0) + '%';
+        
+        let unitMillion = ' Tr';
+        let localeStr = 'vi-VN';
+        if (typeof currentLang !== 'undefined') {
+            if (currentLang === 'en') {
+                unitMillion = ' M';
+                localeStr = 'en-US';
+            } else if (currentLang === 'zh') {
+                unitMillion = ' 百万';
+                localeStr = 'zh-CN';
+            }
+        }
+        
         // Add content text representing value inside bar
-        el.textContent = Math.round(val).toLocaleString('vi-VN') + ' Tr';
+        el.textContent = Math.round(val).toLocaleString(localeStr) + unitMillion;
         el.style.color = '#fff';
         el.style.fontSize = '0.75rem';
         el.style.fontWeight = '700';
@@ -701,7 +714,8 @@
     const DICTIONARY = {
         // Nav Header
         "Trang Chủ": { en: "Home", zh: "首页" },
-        "Giới Thiệu": { en: "About Us", zh: "关于我们" },
+        "Giới Thiệu": { en: "About Us", zh: "关于 chúng tôi" },
+        "Giới thiệu": { en: "About Us", zh: "关于 chúng tôi" },
         "Sản Phẩm": { en: "Products", zh: "产品中心" },
         "Tấm Pin Năng Lượng": { en: "Solar Panels", zh: "太阳能电池板" },
         "Inverter (Biến Tần)": { en: "Inverters", zh: "逆变器" },
@@ -710,15 +724,25 @@
         "Giải Thế": { en: "Solutions", zh: "解决方案" },
         "Giải Pháp": { en: "Solutions", zh: "解决方案" },
         "Doanh nghiệp & Nhà máy": { en: "C&I and Factories", zh: "工商业及工厂" },
+        "Doanh nghiệp &amp; Nhà máy": { en: "C&amp;I and Factories", zh: "工商业及工厂" },
         "Hộ Gia Đình": { en: "Residential", zh: "家用及户用" },
+        "Hộ gia đình": { en: "Residential", zh: "家用及户用" },
         "Nông Nghiệp": { en: "Agriculture", zh: "农业应用" },
+        "Nông nghiệp": { en: "Agriculture", zh: "农业应用" },
         "Đầu Tư Môi Giới": { en: "Investment & Broker", zh: "投资与经纪" },
+        "Đầu tư &amp; Môi giới": { en: "Investment &amp; Brokerage", zh: "投资与经纪" },
         "Giải pháp ESCO/PPA": { en: "ESCO/PPA Solutions", zh: "ESCO/PPA 解决方案" },
         "Kết nối Quỹ tín dụng xanh": { en: "Green Loan Matching", zh: "对接绿色信贷基金" },
         "Đòn bẩy EPC & O&M": { en: "EPC & O&M Leverage", zh: "EPC与O&M杠杆" },
         "Dự Án": { en: "Projects", zh: "示范项目" },
+        "Dự án tiêu biểu": { en: "Featured Projects", zh: "示范项目" },
         "Tin Tức": { en: "News", zh: "新闻动态" },
-        "Liên Hệ": { en: "Contact Us", zh: "联系我们" },
+        "Liên Hệ": { en: "Contact Us", zh: "联系 chúng tôi" },
+        "Liên hệ": { en: "Contact Us", zh: "联系 chúng tôi" },
+        "Về chúng tôi": { en: "About Us", zh: "关于 chúng tôi" },
+        "Chính sách bảo mật": { en: "Privacy Policy", zh: "隐私政策" },
+        "Điều khoản sử dụng": { en: "Terms of Use", zh: "使用条款" },
+        "Tin Tức &amp; Kiến Thức": { en: "News &amp; Knowledge", zh: "新闻动态与行业科普" },
         "Nhận Báo Giá": { en: "Get Quote", zh: "获取报价" },
         "Năng lượng · Tỏa sáng": { en: "Energy · Shine", zh: "能量 · 闪耀" },
         
@@ -1284,11 +1308,186 @@
         "Điện áp hở mạch (Voc)": { en: "Open Circuit Voltage (Voc)", zh: "开路电压 (Voc)" },
         "Dòng ngắn mạch (Isc)": { en: "Short Circuit Current (Isc)", zh: "短路电流 (Isc)" },
         "Kích thước": { en: "Dimensions", zh: "尺寸" },
-        "Trọng lượng": { en: "Weight", zh: "重量" }
+        "Trọng lượng": { en: "Weight", zh: "重量" },
+        
+        // Products Filters sidebar
+        "Bộ Lọc": { en: "Filters", zh: "筛选条件" },
+        "Đặt Lại": { en: "Reset", zh: "重置" },
+        "Tìm Kiếm": { en: "Search", zh: "搜索" },
+        "Nhóm Sản Phẩm": { en: "Category", zh: "产品类别" },
+        "Thương Hiệu": { en: "Brand", zh: "品牌" },
+        "Trạng Thái": { en: "Status", zh: "状态" },
+        "Tấm Pin": { en: "Solar Panels", zh: "太阳能电池板" },
+        "Inverter": { en: "Inverters", zh: "逆变器" },
+        "Pin Lưu Trữ": { en: "Battery Storage", zh: "储能电池" },
+        "Phụ Kiện": { en: "Accessories", zh: "安装配件" },
+        "Bán Chạy": { en: "Best Sellers", zh: "畅销产品" },
+        "Mới Ra Mắt": { en: "New Arrivals", zh: "新品上市" },
+        "Hot": { en: "Hot", zh: "热门" },
+        "Bán chạy": { en: "Best Seller", zh: "畅销" },
+        "Mới": { en: "New", zh: "新品" },
+        "Mặc định": { en: "Default", zh: "默认排序" },
+        "Tên A → Z": { en: "Name A → Z", zh: "名称 A → Z" },
+        "Tên Z → A": { en: "Name Z → A", zh: "名称 Z → A" },
+        "Hiển thị": { en: "Showing", zh: "显示" },
+        "sản phẩm": { en: "products", zh: "个产品" },
+        "Không tìm thấy sản phẩm nào phù hợp.": { en: "No matching products found.", zh: "未找到匹配的产品。" },
+        "Xóa Bộ Lọc": { en: "Clear Filters", zh: "清除筛选" },
+        "Tên hoặc mã sản phẩm...": { en: "Product name or code...", zh: "产品名称或编码..." },
+        "Hiển thị <strong>9</strong> sản phẩm": { en: "Showing <strong>9</strong> products", zh: "显示 <strong>9</strong> 个产品" },
+        "Không tìm thấy sản phẩm phù hợp.<br>Hãy thử điều chỉnh bộ lọc.": {
+            en: "No matching products found.<br>Try adjusting the filters.",
+            zh: "没有找到符合条件的产品。<br>请尝试调整筛选条件。"
+        },
+        
+        // News Page Sidebar & Cats
+        "<i class=\"fa-solid fa-circle-dot\"></i> Tất cả bài viết <span>12</span>": {
+            en: "<i class=\"fa-solid fa-circle-dot\"></i> All Articles <span>12</span>",
+            zh: "<i class=\"fa-solid fa-circle-dot\"></i> 所有文章 <span>12</span>"
+        },
+        "<i class=\"fa-solid fa-building\"></i> Tin công ty <span>5</span>": {
+            en: "<i class=\"fa-solid fa-building\"></i> Company News <span>5</span>",
+            zh: "<i class=\"fa-solid fa-building\"></i> 企业动态 <span>5</span>"
+        },
+        "<i class=\"fa-solid fa-book-open\"></i> Kiến thức điện mặt trời <span>4</span>": {
+            en: "<i class=\"fa-solid fa-book-open\"></i> Solar Knowledge <span>4</span>",
+            zh: "<i class=\"fa-solid fa-book-open\"></i> 光伏科普 <span>4</span>"
+        },
+        "<i class=\"fa-solid fa-landmark\"></i> Cập nhật chính sách <span>3</span>": {
+            en: "<i class=\"fa-solid fa-landmark\"></i> Policy Updates <span>3</span>",
+            zh: "<i class=\"fa-solid fa-landmark\"></i> 最新政策 <span>3</span>"
+        },
+        
+        // Keys with HTML tags or split segments
+        "Năng lượng mặt trời — không chỉ là công nghệ,<br>đó là cam kết kiến tạo tương lai xanh cho Việt Nam.": {
+            en: "Solar energy — not just technology,<br>it's a commitment to building a green future for Vietnam.",
+            zh: "太阳能 — 不仅仅是技术，<br>更是我们为越南创造绿色未来的庄严承诺。"
+        },
+        "Từ 5 Kỹ Sư Đến<br>Top 3 Thị Trường": {
+            en: "From 5 Engineers to<br>Top 3 in the Market",
+            zh: "从5位工程师到<br>市场前三名"
+        },
+        "Top 3 EPC Solar<br>Việt Nam 2024": {
+            en: "Top 3 Solar EPC<br>Vietnam 2024",
+            zh: "2024年越南光伏EPC<br>排名前三"
+        },
+        "Tổng thầu EPC hàng đầu<br><small>Việt Nam 2024</small>": {
+            en: "Leading EPC Contractor<br><small>Vietnam 2024</small>",
+            zh: "领先的 EPC 总包商<br><small>越南 2024</small>"
+        },
+        "Hôm Nay &amp; Tương Lai": {
+            en: "Today &amp; Beyond",
+            zh: "立足当下，展望未来"
+        },
+        "Liên Hệ &amp; Báo Giá": {
+            en: "Contact &amp; Quotes",
+            zh: "联系与报价"
+        },
+        "Đầu Tư Môi Giới <i class=\"fa-solid fa-chevron-down fa-xs\"></i>": {
+            en: "Investment &amp; Brokerage <i class=\"fa-solid fa-chevron-down fa-xs\"></i>",
+            zh: "投资与经纪 <i class=\"fa-solid fa-chevron-down fa-xs\"></i>"
+        },
+        "Giải Pháp <i class=\"fa-solid fa-chevron-down fa-xs\"></i>": {
+            en: "Solutions <i class=\"fa-solid fa-chevron-down fa-xs\"></i>",
+            zh: "解决方案 <i class=\"fa-solid fa-chevron-down fa-xs\"></i>"
+        },
+        "<i class=\"fa-solid fa-industry\"></i> Doanh nghiệp &amp; Nhà máy": {
+            en: "<i class=\"fa-solid fa-industry\"></i> Commercial &amp; Industrial",
+            zh: "<i class=\"fa-solid fa-industry\"></i> 工商业及工厂"
+        },
+        "<i class=\"fa-solid fa-house-chimney\"></i> Hộ Gia Đình": {
+            en: "<i class=\"fa-solid fa-house-chimney\"></i> Residential",
+            zh: "<i class=\"fa-solid fa-house-chimney\"></i> 家用及户用"
+        },
+        "<i class=\"fa-solid fa-tractor\"></i> Nông Nghiệp": {
+            en: "<i class=\"fa-solid fa-tractor\"></i> Agriculture",
+            zh: "<i class=\"fa-solid fa-tractor\"></i> 农业应用"
+        },
+        "<i class=\"fa-solid fa-file-contract\"></i> Giải pháp ESCO/PPA": {
+            en: "<i class=\"fa-solid fa-file-contract\"></i> ESCO/PPA Solutions",
+            zh: "<i class=\"fa-solid fa-file-contract\"></i> ESCO/PPA 解决方案"
+        },
+        "<i class=\"fa-solid fa-handshake-simple\"></i> Kết nối Quỹ tín dụng xanh": {
+            en: "<i class=\"fa-solid fa-handshake-simple\"></i> Green Credit Matching",
+            zh: "<i class=\"fa-solid fa-handshake-simple\"></i> 对接绿色信贷基金"
+        },
+        "<i class=\"fa-solid fa-shield-halved\"></i> Đòn bẩy EPC &amp; O&amp;M": {
+            en: "<i class=\"fa-solid fa-shield-halved\"></i> EPC &amp; O&amp;M Leverage",
+            zh: "<i class=\"fa-solid fa-shield-halved\"></i> EPC与O&amp;M杠杆"
+        },
+        "Nhận Báo Giá <i class=\"fa-solid fa-arrow-right\"></i>": {
+            en: "Get Quote <i class=\"fa-solid fa-arrow-right\"></i>",
+            zh: "获取报价 <i class=\"fa-solid fa-arrow-right\"></i>"
+        },
+        "Xem Chi Tiết <i class=\"fa-solid fa-arrow-right\"></i>": {
+            en: "View Details <i class=\"fa-solid fa-arrow-right\"></i>",
+            zh: "查看详情 <i class=\"fa-solid fa-arrow-right\"></i>"
+        },
+        "Tìm hiểu thêm <i class=\"fa-solid fa-arrow-right\"></i>": {
+            en: "Learn More <i class=\"fa-solid fa-arrow-right\"></i>",
+            zh: "了解更多 <i class=\"fa-solid fa-arrow-right\"></i>"
+        },
+        "Nhận Tư Vấn ESCO <i class=\"fa-solid fa-arrow-right\"></i>": {
+            en: "Get ESCO Consult <i class=\"fa-solid fa-arrow-right\"></i>",
+            zh: "咨询 ESCO 方案 <i class=\"fa-solid fa-arrow-right\"></i>"
+        },
+        "Kết Nối Với Quỹ Xanh <i class=\"fa-solid fa-arrow-right\"></i>": {
+            en: "Connect with Green Funds <i class=\"fa-solid fa-arrow-right\"></i>",
+            zh: "对接绿色基金 <i class=\"fa-solid fa-arrow-right\"></i>"
+        },
+        "Đăng Ký Khảo Sát EPC <i class=\"fa-solid fa-arrow-right\"></i>": {
+            en: "Request EPC Survey <i class=\"fa-solid fa-arrow-right\"></i>",
+            zh: "申请 EPC 勘测 <i class=\"fa-solid fa-arrow-right\"></i>"
+        },
+        "<i class=\"fa-solid fa-file-invoice\"></i> Nhận Tư Vấn Miễn Phí": {
+            en: "<i class=\"fa-solid fa-file-invoice\"></i> Get Free Consultation",
+            zh: "<i class=\"fa-solid fa-file-invoice\"></i> 获取免费咨询"
+        },
+        "<i class=\"fa-solid fa-phone-volume\"></i> 0900.123.456": {
+            en: "<i class=\"fa-solid fa-phone-volume\"></i> 0900.123.456",
+            zh: "<i class=\"fa-solid fa-phone-volume\"></i> 0900.123.456"
+        },
+        "Gửi Yêu Cầu Tư Vấn <i class=\"fa-solid fa-paper-plane\"></i>": {
+            en: "Submit Request <i class=\"fa-solid fa-paper-plane\"></i>",
+            zh: "提交咨询申请 <i class=\"fa-solid fa-paper-plane\"></i>"
+        },
+        "Gửi Yêu Cầu <i class=\"fa-solid fa-paper-plane\"></i>": {
+            en: "Submit Request <i class=\"fa-solid fa-paper-plane\"></i>",
+            zh: "提交申请 <i class=\"fa-solid fa-paper-plane\"></i>"
+        },
+        "TEST<span class=\"logo-slogan\" style=\"opacity:.7\">Năng lượng · Tỏa sáng</span>": {
+            en: "TEST<span class=\"logo-slogan\" style=\"opacity:.7\">Energy · Shine</span>",
+            zh: "TEST<span class=\"logo-slogan\" style=\"opacity:.7\">能量 · 闪耀</span>"
+        },
+        "© 2026 TEST. Bảo lưu mọi quyền.": {
+            en: "© 2026 TEST. All rights reserved.",
+            zh: "© 2026 TEST. 保留所有权利。"
+        },
+        "Nhà Máy Tech Vina": {
+            en: "Tech Vina Factory",
+            zh: "Tech Vina 制造厂"
+        }
     };
 
     function translateDOM(element, lang) {
         if (!element) return;
+        
+        // Translate placeholders
+        if (element.placeholder) {
+            if (element._originalPlaceholder === undefined) {
+                element._originalPlaceholder = element.placeholder;
+            }
+            const cleanKey = element._originalPlaceholder.trim().replace(/\s+/g, ' ');
+            if (DICTIONARY[cleanKey] && DICTIONARY[cleanKey][lang]) {
+                element.placeholder = DICTIONARY[cleanKey][lang];
+            } else if (lang === 'vi') {
+                element.placeholder = element._originalPlaceholder;
+            }
+        }
+
+        // Tags to translate whole innerHTML directly (handles nested formatting, inline elements & icons)
+        const translatableTags = ['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'LI', 'SPAN', 'A', 'BLOCKQUOTE', 'STRONG', 'BUTTON', 'LABEL', 'OPTION'];
+        
         if (element.nodeType === 3) { // TEXT_NODE
             const text = element.textContent.trim();
             if (!text) return;
@@ -1305,20 +1504,25 @@
             } else if (lang === 'vi') {
                 element.textContent = element._originalText;
             }
-        } else {
-            // Translate placeholders
-            if (element.placeholder) {
-                if (element._originalPlaceholder === undefined) {
-                    element._originalPlaceholder = element.placeholder;
+        } else if (translatableTags.includes(element.tagName)) {
+            // Try to translate the whole innerHTML
+            const rawHTML = element.innerHTML.trim().replace(/\s+/g, ' ');
+            if (rawHTML) {
+                if (element._originalHTML === undefined) {
+                    element._originalHTML = element.innerHTML;
                 }
-                const cleanKey = element._originalPlaceholder.trim().replace(/\s+/g, ' ');
+                const cleanKey = element._originalHTML.trim().replace(/\s+/g, ' ');
                 if (DICTIONARY[cleanKey] && DICTIONARY[cleanKey][lang]) {
-                    element.placeholder = DICTIONARY[cleanKey][lang];
-                } else if (lang === 'vi') {
-                    element.placeholder = element._originalPlaceholder;
+                    element.innerHTML = DICTIONARY[cleanKey][lang];
+                    return; // Stop recursing this element's children
                 }
             }
-            // Recurse children
+            // Fallback: translate children
+            if (element.tagName !== 'SCRIPT' && element.tagName !== 'STYLE') {
+                element.childNodes.forEach(child => translateDOM(child, lang));
+            }
+        } else {
+            // Recurse children for non-translatable container tags (e.g. DIV, SECTION, etc.)
             if (element.tagName !== 'SCRIPT' && element.tagName !== 'STYLE') {
                 element.childNodes.forEach(child => translateDOM(child, lang));
             }
