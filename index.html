@@ -1,0 +1,1154 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST | Năng lượng - Tỏa sáng</title>
+    <meta name="description" content="Nhà cung cấp giải pháp điện năng lượng mặt trời hàng đầu, chứng chỉ quốc tế, bảo hành 25 năm.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?fTESTly=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- === CURSOR === -->
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- === LOADING SCREEN === -->
+<div class="loader" id="loader">
+    <div class="loader-inner">
+        <div class="loader-logo"><i class="fa-solid fa-leaf"></i></div>
+        <div class="loader-bar"><div class="loader-progress" id="loader-progress"></div></div>
+        <p class="loader-text">TEST</p>
+    </div>
+</div>
+
+<!-- === HEADER === -->
+<header class="header" id="header">
+    <div class="header-bg"></div>
+    <div class="container header-inner">
+        <a href="javascript:void(0)" class="logo" onclick="navigateTo('home')">
+            <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
+            <span class="logo-text">TEST<span class="logo-slogan">Năng lượng · Tỏa sáng</span></span>
+        </a>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="javascript:void(0)" class="nav-link active" data-page="home" onclick="navigateTo('home')">Trang Chủ</a></li>
+                <li><a href="javascript:void(0)" class="nav-link" data-page="about" onclick="navigateTo('about')">Giới Thiệu</a></li>
+                <li class="has-dropdown">
+                    <a href="javascript:void(0)" class="nav-link" data-page="products" onclick="navigateTo('products')">Sản Phẩm <i class="fa-solid fa-chevron-down fa-xs"></i></a>
+                    <div class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('products'); filterProducts('panels')"><i class="fa-solid fa-solar-panel"></i> Tấm Pin Năng Lượng</a>
+                        <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('products'); filterProducts('inverters')"><i class="fa-solid fa-microchip"></i> Inverter (Biến Tần)</a>
+                        <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('products'); filterProducts('batteries')"><i class="fa-solid fa-battery-full"></i> Pin Lưu Trữ</a>
+                        <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('products'); filterProducts('accessories')"><i class="fa-solid fa-screwdriver-wrench"></i> Phụ Kiện Thi Công</a>
+                    </div>
+                </li>
+                <li class="has-dropdown">
+                    <a href="javascript:void(0)" class="nav-link" onclick="navigateTo('solutions')">Giải Pháp <i class="fa-solid fa-chevron-down fa-xs"></i></a>
+                    <div class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('solutions')"><i class="fa-solid fa-industry"></i> Doanh nghiệp &amp; Nhà máy</a>
+                        <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('solutions')"><i class="fa-solid fa-house-chimney"></i> Hộ Gia Đình</a>
+                        <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('solutions')"><i class="fa-solid fa-tractor"></i> Nông Nghiệp</a>
+                    </div>
+                </li>
+                <li><a href="javascript:void(0)" class="nav-link" data-page="projects" onclick="navigateTo('projects')">Dự Án</a></li>
+                <li><a href="javascript:void(0)" class="nav-link" data-page="news" onclick="navigateTo('news')">Tin Tức</a></li>
+                <li><a href="javascript:void(0)" class="nav-link" data-page="contact" onclick="navigateTo('contact')">Liên Hệ</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <div class="hotline-mini">
+                <i class="fa-solid fa-phone-volume"></i>
+                <span>0900.123.456</span>
+            </div>
+            <button class="btn-cta" onclick="navigateTo('contact')">Nhận Báo Giá <i class="fa-solid fa-arrow-right"></i></button>
+            <button class="menu-toggle" id="menu-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+        </div>
+    </div>
+</header>
+
+<!-- === PAGES CONTAINER === -->
+<div id="app">
+
+    <!-- ===== PAGE: HOME ===== -->
+    <div class="page active" id="page-home">
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-bg" style="background-image: url('file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/hero_banner_1783009336459.jpg')"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-particles" id="particles"></div>
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge reveal-up delay-0">
+                        <span class="badge-dot"></span> Tiên phong năng lượng xanh tại Việt Nam
+                    </div>
+                    <h1 class="hero-title reveal-up delay-1">
+                        Giải Pháp Điện Mặt Trời<br>
+                        <span class="title-highlight">Chuẩn Quốc Tế</span>
+                    </h1>
+                    <p class="hero-desc reveal-up delay-2">Tổng thầu EPC hàng đầu — Đồng hành cùng doanh nghiệp tối ưu chi phí năng lượng, đạt chứng chỉ ESG và kiến tạo tương lai bền vững.</p>
+                    <div class="hero-buttons reveal-up delay-3">
+                        <button class="btn-hero-primary" onclick="navigateTo('solutions')">
+                            <span>Khám Phá Giải Pháp</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        <button class="btn-hero-outline" onclick="openVideoModal()">
+                            <div class="play-icon"><i class="fa-solid fa-play"></i></div>
+                            <span>Xem video thực tế</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-card-wrap reveal-right delay-2">
+                    <div class="hero-card glass-card">
+                        <div class="hcard-header"><i class="fa-solid fa-bolt-lightning"></i> Hiệu suất hôm nay</div>
+                        <div class="hcard-value">12.4 <span>MWh</span></div>
+                        <div class="hcard-chart">
+                            <div class="bar" style="height:40%"></div>
+                            <div class="bar" style="height:65%"></div>
+                            <div class="bar" style="height:50%"></div>
+                            <div class="bar" style="height:80%"></div>
+                            <div class="bar" style="height:95%"></div>
+                            <div class="bar active" style="height:75%"></div>
+                        </div>
+                        <div class="hcard-footer"><i class="fa-solid fa-arrow-trend-up"></i> +8.2% so với hôm qua</div>
+                    </div>
+                    <div class="hero-card-sm glass-card">
+                        <i class="fa-solid fa-seedling"></i>
+                        <div>
+                            <p class="sm-val">4.2 Tấn</p>
+                            <p class="sm-label">CO₂ giảm thiểu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-scroll-indicator">
+                <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+                <span>Cuộn xuống</span>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card reveal-up">
+                        <div class="stat-icon"><i class="fa-solid fa-solar-panel"></i></div>
+                        <div class="stat-val"><span class="counter" data-target="150">0</span><span class="stat-unit">+</span></div>
+                        <div class="stat-label">MWp Đã Lắp Đặt</div>
+                    </div>
+                    <div class="stat-card reveal-up delay-1">
+                        <div class="stat-icon"><i class="fa-solid fa-building"></i></div>
+                        <div class="stat-val"><span class="counter" data-target="300">0</span><span class="stat-unit">+</span></div>
+                        <div class="stat-label">Dự Án Hoàn Thành</div>
+                    </div>
+                    <div class="stat-card reveal-up delay-2">
+                        <div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                        <div class="stat-val"><span class="counter" data-target="15">0</span><span class="stat-unit"> năm</span></div>
+                        <div class="stat-label">Kinh Nghiệm</div>
+                    </div>
+                    <div class="stat-card reveal-up delay-3">
+                        <div class="stat-icon"><i class="fa-solid fa-wind"></i></div>
+                        <div class="stat-val"><span class="counter" data-target="50000">0</span><span class="stat-unit">+</span></div>
+                        <div class="stat-label">Tấn CO₂ Giảm Thiểu</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section class="about section-pad">
+            <div class="container about-grid">
+                <div class="about-media reveal-left">
+                    <div class="about-img-wrap">
+                        <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_1_1783009346227.jpg" alt="Về GreenTech Solar">
+                        <div class="img-badge">
+                            <i class="fa-solid fa-award"></i>
+                            <span>Tổng thầu EPC hàng đầu<br><small>Việt Nam 2024</small></span>
+                        </div>
+                    </div>
+                    <div class="about-media-stat glass-card">
+                        <p class="media-stat-num">98%</p>
+                        <p class="media-stat-label">Khách hàng hài lòng</p>
+                    </div>
+                </div>
+                <div class="about-content reveal-right">
+                    <div class="section-label"><i class="fa-solid fa-leaf"></i> VỀ CHÚNG TÔI</div>
+                    <h2 class="section-h2">Tổng Thầu EPC<br>Uy Tín Số 1</h2>
+                    <p class="about-desc">GreenTech Solar là đơn vị thiết kế, thi công và vận hành hệ thống điện mặt trời toàn diện. Với đội ngũ kỹ sư hơn 10 năm kinh nghiệm và công nghệ Tier 1 quốc tế, chúng tôi cam kết mang lại hiệu quả đầu tư tối ưu cho từng khách hàng.</p>
+                    <div class="about-features">
+                        <div class="about-feat"><i class="fa-solid fa-check-circle"></i><span>Thiết kế thi công EPC trọn gói</span></div>
+                        <div class="about-feat"><i class="fa-solid fa-check-circle"></i><span>Bảo hành hiệu suất 25 năm</span></div>
+                        <div class="about-feat"><i class="fa-solid fa-check-circle"></i><span>Chứng chỉ ISO 9001:2015</span></div>
+                        <div class="about-feat"><i class="fa-solid fa-check-circle"></i><span>Hỗ trợ thủ tục EVN, PCCC trọn gói</span></div>
+                    </div>
+                    <button class="btn-primary" onclick="navigateTo('about')">Xem Hồ Sơ Năng Lực <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solutions -->
+        <section class="solutions section-pad bg-light" id="solutions">
+            <div class="container">
+                <div class="section-head reveal-up">
+                    <div class="section-label"><i class="fa-solid fa-layer-group"></i> GIẢI PHÁP</div>
+                    <h2 class="section-h2">Tối Ưu Cho Mọi Nhu Cầu</h2>
+                    <p class="section-sub">Từ nhà máy quy mô lớn đến hộ gia đình, chúng tôi có giải pháp phù hợp với từng mục tiêu của bạn.</p>
+                </div>
+                <div class="sol-grid">
+                    <div class="sol-card reveal-up delay-0">
+                        <div class="sol-img-wrap">
+                            <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_1_1783009346227.jpg" alt="Doanh nghiệp">
+                            <div class="sol-tag">Phổ biến nhất</div>
+                        </div>
+                        <div class="sol-body">
+                            <div class="sol-icon"><i class="fa-solid fa-industry"></i></div>
+                            <h3>Doanh Nghiệp &amp; Nhà Máy</h3>
+                            <ul>
+                                <li><i class="fa-solid fa-check"></i> Hoàn vốn 4–5 năm</li>
+                                <li><i class="fa-solid fa-check"></i> Giảm 80% hóa đơn điện</li>
+                                <li><i class="fa-solid fa-check"></i> Đạt chứng chỉ LEED / ESG</li>
+                            </ul>
+                            <button class="sol-btn" onclick="navigateTo('solutions')">Tìm hiểu thêm <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="sol-card featured reveal-up delay-1">
+                        <div class="sol-img-wrap">
+                            <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_2_1783009357654.jpg" alt="Hộ gia đình">
+                        </div>
+                        <div class="sol-body">
+                            <div class="sol-icon"><i class="fa-solid fa-house-chimney"></i></div>
+                            <h3>Hộ Gia Đình</h3>
+                            <ul>
+                                <li><i class="fa-solid fa-check"></i> Hệ thống Hybrid On/Off-grid</li>
+                                <li><i class="fa-solid fa-check"></i> Giám sát realtime qua App</li>
+                                <li><i class="fa-solid fa-check"></i> Lắp đặt trong 1–2 ngày</li>
+                            </ul>
+                            <button class="sol-btn" onclick="navigateTo('solutions')">Tìm hiểu thêm <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="sol-card reveal-up delay-2">
+                        <div class="sol-img-wrap">
+                            <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_3_1783009367754.jpg" alt="Nông nghiệp">
+                        </div>
+                        <div class="sol-body">
+                            <div class="sol-icon"><i class="fa-solid fa-tractor"></i></div>
+                            <h3>Nông Nghiệp Công Nghệ Cao</h3>
+                            <ul>
+                                <li><i class="fa-solid fa-check"></i> Tối ưu diện tích canh tác</li>
+                                <li><i class="fa-solid fa-check"></i> Vận hành bơm tưới tự động</li>
+                                <li><i class="fa-solid fa-check"></i> Hiệu quả kinh tế kép</li>
+                            </ul>
+                            <button class="sol-btn" onclick="navigateTo('solutions')">Tìm hiểu thêm <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Preview -->
+        <section class="projects section-pad">
+            <div class="container">
+                <div class="section-head-row reveal-up">
+                    <div>
+                        <div class="section-label"><i class="fa-solid fa-map-location-dot"></i> DỰ ÁN</div>
+                        <h2 class="section-h2">Dấu Ấn Trên Mọi Miền</h2>
+                    </div>
+                    <button class="btn-outline-dark" onclick="navigateTo('projects')">Xem tất cả <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+                <div class="proj-grid">
+                    <div class="proj-card large reveal-up delay-0" onclick="navigateTo('projects')">
+                        <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_1_1783009346227.jpg" alt="Nhà máy Tech Vina">
+                        <div class="proj-overlay">
+                            <span class="proj-cat">Công nghiệp</span>
+                            <h4>Nhà Máy Tech Vina – 1.2 MWp</h4>
+                            <p><i class="fa-solid fa-location-dot"></i> KCN Yên Phong, Bắc Ninh</p>
+                            <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="proj-card reveal-up delay-1" onclick="navigateTo('projects')">
+                        <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_2_1783009357654.jpg" alt="Biệt thự">
+                        <div class="proj-overlay">
+                            <span class="proj-cat">Dân dụng</span>
+                            <h4>Biệt Thự Vinhomes – 15 kWp</h4>
+                            <p><i class="fa-solid fa-location-dot"></i> Long Biên, Hà Nội</p>
+                            <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="proj-card reveal-up delay-2" onclick="navigateTo('projects')">
+                        <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_3_1783009367754.jpg" alt="Nông trại">
+                        <div class="proj-overlay">
+                            <span class="proj-cat">Nông nghiệp</span>
+                            <h4>Trang Trại HT – 500 kWp</h4>
+                            <p><i class="fa-solid fa-location-dot"></i> Mộc Châu, Sơn La</p>
+                            <div class="proj-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Us -->
+        <section class="why section-pad bg-dark-section">
+            <div class="container">
+                <div class="section-head reveal-up">
+                    <div class="section-label light"><i class="fa-solid fa-star"></i> GIÁ TRỊ CỐT LÕI</div>
+                    <h2 class="section-h2 text-white">Tại Sao Chọn GreenTech Solar?</h2>
+                </div>
+                <div class="why-grid">
+                    <div class="why-card glass-card reveal-up delay-0">
+                        <div class="why-num">01</div>
+                        <div class="why-icon"><i class="fa-solid fa-medal"></i></div>
+                        <h3>Thiết Bị Tier 1</h3>
+                        <p>Tấm pin & Inverter thuộc Top 5 Tier 1 Bloomberg. Cam kết hiệu suất 25 năm.</p>
+                    </div>
+                    <div class="why-card glass-card reveal-up delay-1">
+                        <div class="why-num">02</div>
+                        <div class="why-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <h3>Bảo Hành 25 Năm</h3>
+                        <p>Bảo hành hiệu suất 84% sau 25 năm vận hành và phần cứng 12 năm.</p>
+                    </div>
+                    <div class="why-card glass-card reveal-up delay-2">
+                        <div class="why-num">03</div>
+                        <div class="why-icon"><i class="fa-solid fa-helmet-safety"></i></div>
+                        <h3>Kỹ Sư 10+ Năm</h3>
+                        <p>Đội ngũ kỹ sư được đào tạo quốc tế, thiết kế và thi công đúng chuẩn.</p>
+                    </div>
+                    <div class="why-card glass-card reveal-up delay-3">
+                        <div class="why-num">04</div>
+                        <div class="why-icon"><i class="fa-solid fa-file-signature"></i></div>
+                        <h3>Thủ Tục Trọn Gói</h3>
+                        <p>Hỗ trợ toàn bộ giấy phép PCCC, đấu nối EVN nhanh và chuyên nghiệp.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Banner -->
+        <section class="cta-band reveal-up">
+            <div class="container">
+                <div class="cta-band-inner">
+                    <div>
+                        <h2>Sẵn sàng chuyển sang năng lượng xanh?</h2>
+                        <p>Nhận tư vấn và báo giá miễn phí từ chuyên gia trong 24 giờ.</p>
+                    </div>
+                    <div class="cta-band-actions">
+                        <button class="btn-cta-white" onclick="navigateTo('contact')">Nhận Báo Giá Miễn Phí</button>
+                        <a href="tel:0900123456" class="cta-phone"><i class="fa-solid fa-phone-volume"></i> 0900.123.456</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- end page-home -->
+
+
+    <!-- ===== PAGE: SOLUTIONS ===== -->
+    <div class="page" id="page-solutions">
+        <div class="page-hero bg-green-grad">
+            <div class="container">
+                <div class="breadcrumb"><span onclick="navigateTo('home')">Trang chủ</span> <i class="fa-solid fa-chevron-right fa-xs"></i> <span>Giải Pháp</span></div>
+                <h1 class="page-hero-title">Giải Pháp Năng Lượng</h1>
+                <p>Tối ưu chi phí, tăng giá trị xanh cho mọi mô hình.</p>
+            </div>
+        </div>
+        <div class="container section-pad">
+            <div class="sol-detail-grid">
+                <div class="sol-detail-card reveal-up">
+                    <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_1_1783009346227.jpg" alt="Doanh nghiệp">
+                    <div class="sol-detail-body">
+                        <div class="sol-icon"><i class="fa-solid fa-industry"></i></div>
+                        <h2>Doanh Nghiệp &amp; Nhà Máy</h2>
+                        <p>Phù hợp với nhà máy, kho xưởng, trung tâm thương mại. Hệ thống từ 50kWp–5MWp, hoàn vốn 4–5 năm, giảm 70–80% hóa đơn điện hàng tháng.</p>
+                        <div class="sol-specs">
+                            <div class="spec"><span class="spec-key">Công suất</span><span class="spec-val">50kWp – 5MWp</span></div>
+                            <div class="spec"><span class="spec-key">Hoàn vốn</span><span class="spec-val">4–5 năm</span></div>
+                            <div class="spec"><span class="spec-key">Tiết kiệm</span><span class="spec-val">70–80%/tháng</span></div>
+                        </div>
+                        <button class="btn-primary" onclick="navigateTo('contact')">Nhận Tư Vấn Miễn Phí</button>
+                    </div>
+                </div>
+                <div class="sol-detail-card reveal-up delay-1">
+                    <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_2_1783009357654.jpg" alt="Hộ gia đình">
+                    <div class="sol-detail-body">
+                        <div class="sol-icon"><i class="fa-solid fa-house-chimney"></i></div>
+                        <h2>Hộ Gia Đình</h2>
+                        <p>Hệ thống On-grid, Off-grid và Hybrid linh hoạt. Tự chủ điện 24/7, quản lý từ xa qua ứng dụng điện thoại thông minh.</p>
+                        <div class="sol-specs">
+                            <div class="spec"><span class="spec-key">Công suất</span><span class="spec-val">3kWp – 20kWp</span></div>
+                            <div class="spec"><span class="spec-key">Lắp đặt</span><span class="spec-val">1–2 ngày</span></div>
+                            <div class="spec"><span class="spec-key">Bảo hành</span><span class="spec-val">25 năm</span></div>
+                        </div>
+                        <button class="btn-primary" onclick="navigateTo('contact')">Nhận Tư Vấn Miễn Phí</button>
+                    </div>
+                </div>
+                <div class="sol-detail-card reveal-up delay-2">
+                    <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_3_1783009367754.jpg" alt="Nông nghiệp">
+                    <div class="sol-detail-body">
+                        <div class="sol-icon"><i class="fa-solid fa-tractor"></i></div>
+                        <h2>Nông Nghiệp Công Nghệ Cao</h2>
+                        <p>Mô hình Agrivoltaic kết hợp sản xuất điện và canh tác nông nghiệp. Tăng hiệu quả kinh tế trên cùng diện tích đất, phù hợp với nhà kính, trang trại.</p>
+                        <div class="sol-specs">
+                            <div class="spec"><span class="spec-key">Công suất</span><span class="spec-val">20kWp – 500kWp</span></div>
+                            <div class="spec"><span class="spec-key">Mô hình</span><span class="spec-val">Agrivoltaic</span></div>
+                            <div class="spec"><span class="spec-key">Lợi ích</span><span class="spec-val">Kép (điện + nông)</span></div>
+                        </div>
+                        <button class="btn-primary" onclick="navigateTo('contact')">Nhận Tư Vấn Miễn Phí</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PAGE: PROJECTS ===== -->
+    <div class="page" id="page-projects">
+        <div class="page-hero bg-blue-grad">
+            <div class="container">
+                <div class="breadcrumb"><span onclick="navigateTo('home')">Trang chủ</span> <i class="fa-solid fa-chevron-right fa-xs"></i> <span>Dự Án</span></div>
+                <h1 class="page-hero-title">Dự Án Tiêu Biểu</h1>
+                <p>300+ dự án hoàn thành trên toàn quốc với tổng công suất 150 MWp.</p>
+            </div>
+        </div>
+        <div class="container section-pad">
+            <div class="filter-tabs reveal-up">
+                <button class="filter-tab active" onclick="filterProjects(this, 'all')">Tất cả</button>
+                <button class="filter-tab" onclick="filterProjects(this, 'industrial')">Công nghiệp</button>
+                <button class="filter-tab" onclick="filterProjects(this, 'residential')">Dân dụng</button>
+                <button class="filter-tab" onclick="filterProjects(this, 'agri')">Nông nghiệp</button>
+            </div>
+            <div class="full-proj-grid">
+                <div class="full-proj-card reveal-up" data-cat="industrial">
+                    <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_1_1783009346227.jpg" alt="">
+                    <div class="fpcard-body">
+                        <span class="proj-cat">Công nghiệp</span>
+                        <h3>Nhà Máy Tech Vina</h3>
+                        <p class="fpcard-meta"><i class="fa-solid fa-bolt"></i> 1.2 MWp &nbsp;|&nbsp; <i class="fa-solid fa-location-dot"></i> Bắc Ninh</p>
+                    </div>
+                </div>
+                <div class="full-proj-card reveal-up delay-1" data-cat="residential">
+                    <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_2_1783009357654.jpg" alt="">
+                    <div class="fpcard-body">
+                        <span class="proj-cat">Dân dụng</span>
+                        <h3>Biệt Thự Vinhomes Riverside</h3>
+                        <p class="fpcard-meta"><i class="fa-solid fa-bolt"></i> 15 kWp &nbsp;|&nbsp; <i class="fa-solid fa-location-dot"></i> Hà Nội</p>
+                    </div>
+                </div>
+                <div class="full-proj-card reveal-up delay-2" data-cat="agri">
+                    <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_3_1783009367754.jpg" alt="">
+                    <div class="fpcard-body">
+                        <span class="proj-cat">Nông nghiệp</span>
+                        <h3>Trang Trại Nông Nghiệp Sạch HT</h3>
+                        <p class="fpcard-meta"><i class="fa-solid fa-bolt"></i> 500 kWp &nbsp;|&nbsp; <i class="fa-solid fa-location-dot"></i> Sơn La</p>
+                    </div>
+                </div>
+                <div class="full-proj-card reveal-up delay-0" data-cat="industrial">
+                    <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_1_1783009346227.jpg" alt="">
+                    <div class="fpcard-body">
+                        <span class="proj-cat">Công nghiệp</span>
+                        <h3>Nhà Máy Samsung SDI</h3>
+                        <p class="fpcard-meta"><i class="fa-solid fa-bolt"></i> 2.5 MWp &nbsp;|&nbsp; <i class="fa-solid fa-location-dot"></i> Thái Nguyên</p>
+                    </div>
+                </div>
+                <div class="full-proj-card reveal-up delay-1" data-cat="residential">
+                    <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_2_1783009357654.jpg" alt="">
+                    <div class="fpcard-body">
+                        <span class="proj-cat">Dân dụng</span>
+                        <h3>Khu Dân Cư The Manor</h3>
+                        <p class="fpcard-meta"><i class="fa-solid fa-bolt"></i> 50 kWp &nbsp;|&nbsp; <i class="fa-solid fa-location-dot"></i> TP.HCM</p>
+                    </div>
+                </div>
+                <div class="full-proj-card reveal-up delay-2" data-cat="agri">
+                    <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_3_1783009367754.jpg" alt="">
+                    <div class="fpcard-body">
+                        <span class="proj-cat">Nông nghiệp</span>
+                        <h3>Vùng Trồng Rau VietGAP</h3>
+                        <p class="fpcard-meta"><i class="fa-solid fa-bolt"></i> 200 kWp &nbsp;|&nbsp; <i class="fa-solid fa-location-dot"></i> Đà Lạt</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PAGE: ABOUT ===== -->
+    <div class="page" id="page-about">
+
+        <!-- Hero Banner -->
+        <div class="about-hero">
+            <div class="about-hero-bg"></div>
+            <div class="container about-hero-inner">
+                <div class="breadcrumb"><span onclick="navigateTo('home')">Trang chủ</span> <i class="fa-solid fa-chevron-right fa-xs"></i> <span>Giới Thiệu</span></div>
+                <h1 class="page-hero-title">Về TEST</h1>
+                <p class="about-hero-sub">Năng lượng mặt trời — không chỉ là công nghệ,<br>đó là cam kết kiến tạo tương lai xanh cho Việt Nam.</p>
+                <div class="about-hero-stats">
+                    <div class="ahs-item"><span class="ahs-num">15+</span><span class="ahs-label">Năm kinh nghiệm</span></div>
+                    <div class="ahs-divider"></div>
+                    <div class="ahs-item"><span class="ahs-num">300+</span><span class="ahs-label">Dự án hoàn thành</span></div>
+                    <div class="ahs-divider"></div>
+                    <div class="ahs-item"><span class="ahs-num">150 MWp</span><span class="ahs-label">Tổng công suất</span></div>
+                    <div class="ahs-divider"></div>
+                    <div class="ahs-item"><span class="ahs-num">98%</span><span class="ahs-label">Khách hàng hài lòng</span></div>
+                </div>
+            </div>
+            
+</div>
+
+        <!-- Brand Story -->
+        <section class="about-section">
+            <div class="container">
+                <div class="brand-story-grid">
+                    <div class="bs-img reveal-left">
+                        <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_1_1783009346227.jpg" alt="Câu chuyện thương hiệu TEST">
+                        <div class="bs-img-badge"><i class="fa-solid fa-award"></i><span>Top 3 EPC Solar<br>Việt Nam 2024</span></div>
+                    </div>
+                    <div class="bs-text reveal-right">
+                        <div class="section-tag">Câu Chuyện Của Chúng Tôi</div>
+                        <h2 class="section-h2">Từ 5 Kỹ Sư Đến<br>Top 3 Thị Trường</h2>
+                        <p>Năm 2009, TEST được thành lập bởi nhóm 5 kỹ sư năng lượng với một niềm tin mãnh liệt: <strong>Việt Nam hoàn toàn có thể chủ động về năng lượng</strong> nhờ ánh nắng mặt trời dồi dào trải dài suốt 12 tháng.</p>
+                        <p>Từ dự án đầu tiên 50 kWp tại một trường học ở Hà Nội, chúng tôi đã từng bước xây dựng uy tín qua chất lượng thi công thực tế. Khách hàng giới thiệu khách hàng — đó là cách TEST lớn lên.</p>
+                        <p>Hôm nay, với đội ngũ 150+ chuyên gia, TEST tự hào là <strong>đơn vị tổng thầu EPC Solar hàng đầu</strong>, phủ sóng từ các khu công nghiệp miền Bắc đến những nông trại điện mặt trời tại miền Nam.</p>
+                        <div class="bs-features">
+                            <div class="bs-feat"><i class="fa-solid fa-circle-check"></i>Thiết kế — Thi công — Vận hành trọn gói</div>
+                            <div class="bs-feat"><i class="fa-solid fa-circle-check"></i>Cam kết hoàn vốn dưới 5 năm</div>
+                            <div class="bs-feat"><i class="fa-solid fa-circle-check"></i>Bảo hành hệ thống 10 năm</div>
+                            <div class="bs-feat"><i class="fa-solid fa-circle-check"></i>Hỗ trợ kỹ thuật 24/7 suốt vòng đời dự án</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision / Mission / Values -->
+        <section class="about-section bg-light-section">
+            <div class="container">
+                <div class="vmv-header reveal-up">
+                    <div class="section-tag">Định Hướng Chiến Lược</div>
+                    <h2 class="section-h2">Tầm Nhìn · Sứ Mệnh · Giá Trị</h2>
+                </div>
+                <div class="vmv-grid">
+                    <div class="vmv-card reveal-up">
+                        <div class="vmv-icon" style="background:linear-gradient(135deg,#10B981,#059669)"><i class="fa-solid fa-eye"></i></div>
+                        <h3>Tầm Nhìn</h3>
+                        <p>Trở thành tập đoàn năng lượng tái tạo hàng đầu Đông Nam Á vào năm 2035, với 1 GWp công suất lắp đặt tích lũy và hiện diện tại 5 quốc gia.</p>
+                    </div>
+                    <div class="vmv-card reveal-up delay-1">
+                        <div class="vmv-icon" style="background:linear-gradient(135deg,#3B82F6,#1D4ED8)"><i class="fa-solid fa-bullseye"></i></div>
+                        <h3>Sứ Mệnh</h3>
+                        <p>Trao quyền chủ động năng lượng cho mọi doanh nghiệp và hộ gia đình Việt Nam thông qua công nghệ điện mặt trời tiên tiến, minh bạch và bền vững.</p>
+                    </div>
+                    <div class="vmv-card reveal-up delay-2">
+                        <div class="vmv-icon" style="background:linear-gradient(135deg,#F59E0B,#D97706)"><i class="fa-solid fa-gem"></i></div>
+                        <h3>Giá Trị Cốt Lõi</h3>
+                        <p>Chính trực trong từng cam kết. Đổi mới không ngừng. Trách nhiệm với cộng đồng và môi trường. Xuất sắc trong chuyên môn kỹ thuật.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Values Detail -->
+        <section class="about-section">
+            <div class="container">
+                <div class="reveal-up" style="text-align:center;margin-bottom:48px">
+                    <div class="section-tag">DNA Của Chúng Tôi</div>
+                    <h2 class="section-h2">4 Nguyên Tắc Vận Hành</h2>
+                </div>
+                <div class="cv-grid">
+                    <div class="cv-card reveal-up"><div class="cv-number">01</div><div class="cv-icon"><i class="fa-solid fa-handshake"></i></div><h4>Chính Trực</h4><p>Báo giá rõ ràng, không ẩn phí. Cam kết đúng tiến độ. Không bớt vật liệu, không thay thế chui.</p></div>
+                    <div class="cv-card reveal-up delay-1"><div class="cv-number">02</div><div class="cv-icon"><i class="fa-solid fa-lightbulb"></i></div><h4>Đổi Mới</h4><p>Liên tục cập nhật công nghệ thế hệ mới. Đội R&amp;D nội bộ phát triển giải pháp tùy chỉnh cho từng công trình.</p></div>
+                    <div class="cv-card reveal-up delay-2"><div class="cv-number">03</div><div class="cv-icon"><i class="fa-solid fa-leaf"></i></div><h4>Trách Nhiệm</h4><p>Mỗi hệ thống TEST lắp đặt giảm trung bình 60 tấn CO₂/năm. Mục tiêu 1 triệu tấn carbon tiết kiệm vào 2030.</p></div>
+                    <div class="cv-card reveal-up delay-3"><div class="cv-number">04</div><div class="cv-icon"><i class="fa-solid fa-star"></i></div><h4>Xuất Sắc</h4><p>Kỹ sư được chứng nhận bởi các nhà sản xuất quốc tế. Tiêu chuẩn thi công theo IEC 62548.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leadership Team -->
+        <section class="about-section bg-light-section">
+            <div class="container">
+                <div class="reveal-up" style="text-align:center;margin-bottom:48px">
+                    <div class="section-tag">Con Người Làm Nên Khác Biệt</div>
+                    <h2 class="section-h2">Đội Ngũ Lãnh Đạo</h2>
+                    <p style="color:var(--muted);max-width:560px;margin:0 auto">Kết hợp giữa kinh nghiệm kỹ thuật sâu và tầm nhìn kinh doanh chiến lược.</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-card reveal-up"><div class="team-avatar"><i class="fa-solid fa-user-tie"></i></div><div class="team-info"><h4>Nguyễn Minh Khoa</h4><div class="team-role">CEO &amp; Đồng sáng lập</div><p>15 năm trong ngành NLTT. Cử nhân Điện — ĐH Bách Khoa HN. MBA — RMIT Việt Nam.</p><div class="team-socials"><a href="javascript:void(0)"><i class="fa-brands fa-linkedin"></i></a><a href="javascript:void(0)"><i class="fa-regular fa-envelope"></i></a></div></div></div>
+                    <div class="team-card reveal-up delay-1"><div class="team-avatar" style="background:linear-gradient(135deg,#3B82F6,#1D4ED8)"><i class="fa-solid fa-user-tie"></i></div><div class="team-info"><h4>Trần Thị Lan Anh</h4><div class="team-role">CTO — Giám đốc Kỹ thuật</div><p>Chuyên gia thiết kế hệ thống PV với 200+ dự án. Thành viên Hiệp hội NLTT Việt Nam (VREA).</p><div class="team-socials"><a href="javascript:void(0)"><i class="fa-brands fa-linkedin"></i></a><a href="javascript:void(0)"><i class="fa-regular fa-envelope"></i></a></div></div></div>
+                    <div class="team-card reveal-up delay-2"><div class="team-avatar" style="background:linear-gradient(135deg,#F59E0B,#D97706)"><i class="fa-solid fa-user-tie"></i></div><div class="team-info"><h4>Lê Văn Đức</h4><div class="team-role">COO — Giám đốc Vận hành</div><p>Quản lý danh mục 300+ công trình. Chuyên gia tối ưu chuỗi cung ứng thiết bị solar Tier 1.</p><div class="team-socials"><a href="javascript:void(0)"><i class="fa-brands fa-linkedin"></i></a><a href="javascript:void(0)"><i class="fa-regular fa-envelope"></i></a></div></div></div>
+                    <div class="team-card reveal-up delay-3"><div class="team-avatar" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9)"><i class="fa-solid fa-user-tie"></i></div><div class="team-info"><h4>Phạm Quốc Bảo</h4><div class="team-role">CFO — Giám đốc Tài chính</div><p>Cấu trúc tài chính dự án, mô hình BOT, thuê-mua và vốn vay ưu đãi ESCO.</p><div class="team-socials"><a href="javascript:void(0)"><i class="fa-brands fa-linkedin"></i></a><a href="javascript:void(0)"><i class="fa-regular fa-envelope"></i></a></div></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline v2 -->
+        <section class="about-section">
+            <div class="container">
+                <div class="reveal-up" style="text-align:center;margin-bottom:56px">
+                    <div class="section-tag">Hành Trình 15 Năm</div>
+                    <h2 class="section-h2">Những Cột Mốc Đáng Nhớ</h2>
+                </div>
+                <div class="timeline-v2">
+                    <div class="tl2-item reveal-up"><div class="tl2-year">2009</div><div class="tl2-dot"><i class="fa-solid fa-flag"></i></div><div class="tl2-card"><h4>Ngày Đầu Tiên</h4><p>Thành lập tại Hà Nội với 5 kỹ sư. Dự án đầu tiên: Hệ thống 50kWp cho trường THPT Chu Văn An.</p></div></div>
+                    <div class="tl2-item reveal-up delay-1"><div class="tl2-year">2013</div><div class="tl2-dot"><i class="fa-solid fa-industry"></i></div><div class="tl2-card"><h4>Bước Vào Công Nghiệp</h4><p>Hoàn thành nhà máy 500kWp đầu tiên tại Bình Dương. Mở văn phòng TP.HCM, ký đối tác với JinkoSolar.</p></div></div>
+                    <div class="tl2-item reveal-up delay-2"><div class="tl2-year">2017</div><div class="tl2-dot"><i class="fa-solid fa-certificate"></i></div><div class="tl2-card"><h4>Chuẩn Hóa Chất Lượng</h4><p>Đạt chứng chỉ ISO 9001:2015. Mở rộng đội ngũ lên 60 người. Ra mắt giám sát vận hành từ xa.</p></div></div>
+                    <div class="tl2-item reveal-up delay-3"><div class="tl2-year">2020</div><div class="tl2-dot"><i class="fa-solid fa-rocket"></i></div><div class="tl2-card"><h4>Vượt 100 Dự Án</h4><p>50 MWp tổng công suất. Ra mắt dịch vụ O&amp;M định kỳ. Mở rộng sang nông nghiệp kết hợp.</p></div></div>
+                    <div class="tl2-item reveal-up delay-1"><div class="tl2-year">2023</div><div class="tl2-dot"><i class="fa-solid fa-trophy"></i></div><div class="tl2-card"><h4>Top 3 Toàn Quốc</h4><p>Vietnam Energy Report xếp Top 3 Tổng thầu EPC Solar. Hoàn thành dự án MWp tại Tây Nguyên.</p></div></div>
+                    <div class="tl2-item reveal-up delay-2"><div class="tl2-year">2026</div><div class="tl2-dot tl2-dot-active"><i class="fa-solid fa-bolt"></i></div><div class="tl2-card tl2-card-active"><h4>Hôm Nay &amp; Tương Lai</h4><p>300+ dự án. 150 MWp. 150 chuyên gia. Đang mở rộng sang Campuchia và Lào. Mục tiêu 1 GWp năm 2035.</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certs & Partners -->
+        <section class="about-section bg-light-section">
+            <div class="container">
+                <div class="cert-partners-grid">
+                    <div class="reveal-left">
+                        <div class="section-tag">Đảm Bảo Chất Lượng</div>
+                        <h2 class="section-h2" style="font-size:1.6rem">Chứng Nhận Quốc Tế</h2>
+                        <div class="cert-list-v2">
+                            <div class="cert2-item"><div class="cert2-icon"><i class="fa-solid fa-certificate"></i></div><div><strong>ISO 9001:2015</strong><p>Hệ thống quản lý chất lượng toàn diện</p></div></div>
+                            <div class="cert2-item"><div class="cert2-icon"><i class="fa-solid fa-shield-halved"></i></div><div><strong>Bloomberg Tier 1</strong><p>Chỉ sử dụng tấm pin Tier 1 đạt chuẩn tài chính quốc tế</p></div></div>
+                            <div class="cert2-item"><div class="cert2-icon"><i class="fa-solid fa-landmark"></i></div><div><strong>Bộ Công Thương — Giấy phép EPC</strong><p>Tổng thầu điện được cấp phép hành nghề chính thức</p></div></div>
+                            <div class="cert2-item"><div class="cert2-icon"><i class="fa-solid fa-fire-extinguisher"></i></div><div><strong>PCCC — Cục Cảnh sát PCCC</strong><p>Hệ thống phòng cháy chữa cháy đạt chuẩn an toàn</p></div></div>
+                            <div class="cert2-item"><div class="cert2-icon"><i class="fa-solid fa-leaf"></i></div><div><strong>Green Building Council Vietnam</strong><p>Thành viên chính thức VGBC từ năm 2019</p></div></div>
+                        </div>
+                    </div>
+                    <div class="reveal-right">
+                        <div class="section-tag">Hệ Sinh Thái Đối Tác</div>
+                        <h2 class="section-h2" style="font-size:1.6rem">Đối Tác Chiến Lược</h2>
+                        <p style="color:var(--muted);margin-bottom:28px">Chỉ hợp tác với những thương hiệu được kiểm chứng bởi thời gian và thị trường toàn cầu.</p>
+                        <div class="partner-grid-v2">
+                            <div class="partner2-item"><span>JinkoSolar</span><p>Tấm pin N-Type</p></div>
+                            <div class="partner2-item"><span>LONGi</span><p>Tấm pin Hi-MO</p></div>
+                            <div class="partner2-item"><span>Sungrow</span><p>Inverter &amp; Pin lưu trữ</p></div>
+                            <div class="partner2-item"><span>Fronius</span><p>Inverter premium</p></div>
+                            <div class="partner2-item"><span>SMA</span><p>Giám sát hệ thống</p></div>
+                            <div class="partner2-item"><span>K2 Systems</span><p>Kết cấu lắp đặt</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="about-cta">
+            <div class="about-cta-bg"></div>
+            <div class="container about-cta-inner reveal-up">
+                <div class="about-cta-icon"><i class="fa-solid fa-solar-panel"></i></div>
+                <h2>Sẵn Sàng Chuyển Đổi Sang Năng Lượng Sạch?</h2>
+                <p>Đội ngũ kỹ sư TEST sẽ khảo sát miễn phí và đưa ra phương án tối ưu trong vòng 48 giờ.</p>
+                <div class="about-cta-actions">
+                    <button class="btn-cta-large" onclick="navigateTo('contact')"><i class="fa-solid fa-file-invoice"></i> Nhận Tư Vấn Miễn Phí</button>
+                    <a href="tel:0900123456" class="btn-cta-outline"><i class="fa-solid fa-phone-volume"></i> 0900.123.456</a>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- /#page-about -->
+
+    <!-- ===== PAGE: CONTACT ===== -->
+    <div class="page" id="page-contact">
+        <div class="page-hero bg-green-grad">
+            <div class="container">
+                <div class="breadcrumb"><span onclick="navigateTo('home')">Trang chủ</span> <i class="fa-solid fa-chevron-right fa-xs"></i> <span>Liên Hệ</span></div>
+                <h1 class="page-hero-title">Liên Hệ &amp; Báo Giá</h1>
+                <p>Nhận tư vấn và báo giá miễn phí trong vòng 24 giờ.</p>
+            </div>
+        </div>
+        <div class="container section-pad">
+            <div class="contact-grid">
+                <div class="contact-info reveal-left">
+                    <h2 class="section-h2">Thông Tin Liên Hệ</h2>
+                    <div class="cinfo-item">
+                        <div class="cinfo-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div><strong>Địa Chỉ</strong><p>Tầng 15, Tòa nhà Xanh, 123 Xuân Thủy, Cầu Giấy, Hà Nội</p></div>
+                    </div>
+                    <div class="cinfo-item">
+                        <div class="cinfo-icon"><i class="fa-solid fa-phone-volume"></i></div>
+                        <div><strong>Hotline</strong><p>0900.123.456 (7:00 – 18:00)</p></div>
+                    </div>
+                    <div class="cinfo-item">
+                        <div class="cinfo-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <div><strong>Email</strong><p>info@greentechsolar.vn</p></div>
+                    </div>
+                    <div class="contact-social">
+                        <a href="javascript:void(0)" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="javascript:void(0)" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="javascript:void(0)" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="javascript:void(0)" class="social-btn"><i class="fa-brands fa-zalo"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form-wrap reveal-right">
+                    <form class="contact-form" onsubmit="handleFormSubmit(event)">
+                        <h3>Nhận Báo Giá Miễn Phí</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Họ và Tên *</label>
+                                <input type="text" placeholder="Nguyễn Văn A" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Số Điện Thoại *</label>
+                                <input type="tel" placeholder="0900 000 000" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Loại Công Trình *</label>
+                            <select required>
+                                <option value="">-- Chọn loại công trình --</option>
+                                <option>Nhà máy / Công nghiệp</option>
+                                <option>Hộ gia đình</option>
+                                <option>Nông nghiệp / Trang trại</option>
+                                <option>Khác</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Nội Dung</label>
+                            <textarea rows="4" placeholder="Mô tả nhu cầu, diện tích mái, vị trí lắp đặt..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Gửi Yêu Cầu Tư Vấn <i class="fa-solid fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Map Section -->
+            <div class="contact-map reveal-up">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.926558509748!2d105.7874749153322!3d21.03562449292357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab48386cd20f%3A0xe54eef7146ceb1d!2zWHXDom4gVGjhu6d5LCBD4bqndSBHaeG6pXksIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1689234567890!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+</div><!-- /#page-contact -->
+
+<div class="page" id="page-products">
+
+    <!-- Products Layout: Sidebar + Grid -->
+    <div class="container products-layout">
+
+        <!-- Sidebar Filter -->
+        <aside class="filter-sidebar">
+            <div class="fs-header">
+                <span><i class="fa-solid fa-sliders"></i> Bộ Lọc</span>
+                <button class="fs-reset" onclick="resetAllFilters()"><i class="fa-solid fa-rotate-left"></i> Đặt Lại</button>
+            </div>
+            <div class="fs-group">
+                <div class="fs-group-title">Tìm Kiếm</div>
+                <div class="fs-search-wrap">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="prod-search" placeholder="Tên hoặc mã sản phẩm..." oninput="applyFilters()">
+                </div>
+            </div>
+            <div class="fs-group">
+                <div class="fs-group-title">Nhóm Sản Phẩm</div>
+                <div class="fs-checkboxes">
+                    <label class="fs-cb"><input type="checkbox" value="panels" onchange="applyFilters()"> <i class="fa-solid fa-solar-panel"></i> Tấm Pin</label>
+                    <label class="fs-cb"><input type="checkbox" value="inverters" onchange="applyFilters()"> <i class="fa-solid fa-microchip"></i> Inverter</label>
+                    <label class="fs-cb"><input type="checkbox" value="batteries" onchange="applyFilters()"> <i class="fa-solid fa-battery-full"></i> Pin Lưu Trữ</label>
+                    <label class="fs-cb"><input type="checkbox" value="accessories" onchange="applyFilters()"> <i class="fa-solid fa-screwdriver-wrench"></i> Phụ Kiện</label>
+                </div>
+            </div>
+            <div class="fs-group">
+                <div class="fs-group-title">Thương Hiệu</div>
+                <div class="fs-checkboxes">
+                    <label class="fs-cb"><input type="checkbox" value="JinkoSolar" onchange="applyFilters()"> JinkoSolar</label>
+                    <label class="fs-cb"><input type="checkbox" value="LONGi Solar" onchange="applyFilters()"> LONGi Solar</label>
+                    <label class="fs-cb"><input type="checkbox" value="Sungrow" onchange="applyFilters()"> Sungrow</label>
+                    <label class="fs-cb"><input type="checkbox" value="Fronius" onchange="applyFilters()"> Fronius</label>
+                    <label class="fs-cb"><input type="checkbox" value="BYD" onchange="applyFilters()"> BYD</label>
+                    <label class="fs-cb"><input type="checkbox" value="K2 Systems" onchange="applyFilters()"> K2 Systems</label>
+                </div>
+            </div>
+            <div class="fs-group">
+                <div class="fs-group-title">Trạng Thái</div>
+                <div class="fs-checkboxes">
+                    <label class="fs-cb"><input type="checkbox" value="Bán chạy" onchange="applyFilters()"> <span class="badge-dot"></span> Bán Chạy</label>
+                    <label class="fs-cb"><input type="checkbox" value="Mới" onchange="applyFilters()"> <span class="badge-dot badge-new"></span> Mới Ra Mắt</label>
+                    <label class="fs-cb"><input type="checkbox" value="Hot" onchange="applyFilters()"> <span class="badge-dot badge-hot"></span> Hot</label>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main: Result bar + Grid -->
+        <div class="products-main">
+            <div class="prod-result-bar">
+                <span id="prod-count">Hiển thị <strong>9</strong> sản phẩm</span>
+                <div class="prod-sort">
+                    <i class="fa-solid fa-arrow-up-wide-short"></i>
+                    <select id="prod-sort" onchange="applyFilters()">
+                        <option value="default">Mặc định</option>
+                        <option value="name-asc">Tên A → Z</option>
+                        <option value="name-desc">Tên Z → A</option>
+                    </select>
+                </div>
+            </div>
+            <div class="product-grid" id="product-grid">
+
+                <!-- Tấm pin -->
+                <div class="prod-card reveal-up" data-cat="panels" data-brand="JinkoSolar" data-badge="Bán chạy" data-name="Tấm Pin N-Type Tiger Neo JKM-580N-72HL4" onclick="openProductDetail('panel-jinko-n72')">
+                    <div class="prod-img-wrap"><img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/product_panel_jinko_1783010743968.jpg" alt="JinkoSolar N-Type 580W"><div class="prod-badge">Bán chạy</div><div class="prod-zoom-hint"><i class="fa-solid fa-eye"></i></div></div>
+                    <div class="prod-body"><div class="prod-brand">JinkoSolar</div><h3 class="prod-name">Tấm Pin N-Type Tiger Neo</h3><div class="prod-code">Mã SP: JKM-580N-72HL4</div><div class="prod-specs"><span><i class="fa-solid fa-bolt"></i> 580 Wp</span><span><i class="fa-solid fa-percent"></i> 22.1%</span></div><button class="prod-cta">Xem Chi Tiết <i class="fa-solid fa-arrow-right"></i></button></div>
+                </div>
+
+                <div class="prod-card reveal-up delay-1" data-cat="panels" data-brand="LONGi Solar" data-badge="" data-name="Tấm Pin Hi-MO 6 Scientist LR5-72HTH-580M" onclick="openProductDetail('panel-longi-hi')">
+                    <div class="prod-img-wrap"><img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/product_panel_jinko_1783010743968.jpg" alt="LONGi Hi-MO 6"><div class="prod-zoom-hint"><i class="fa-solid fa-eye"></i></div></div>
+                    <div class="prod-body"><div class="prod-brand">LONGi Solar</div><h3 class="prod-name">Tấm Pin Hi-MO 6 Scientist</h3><div class="prod-code">Mã SP: LR5-72HTH-580M</div><div class="prod-specs"><span><i class="fa-solid fa-bolt"></i> 580 Wp</span><span><i class="fa-solid fa-percent"></i> 22.8%</span></div><button class="prod-cta">Xem Chi Tiết <i class="fa-solid fa-arrow-right"></i></button></div>
+                </div>
+
+                <div class="prod-card reveal-up delay-2" data-cat="panels" data-brand="JinkoSolar" data-badge="" data-name="Tấm Pin N-Type 605W JKM-605N-78HL4" onclick="openProductDetail('panel-jinko-n72')">
+                    <div class="prod-img-wrap"><img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/product_panel_jinko_1783010743968.jpg" alt="JinkoSolar 605W"><div class="prod-zoom-hint"><i class="fa-solid fa-eye"></i></div></div>
+                    <div class="prod-body"><div class="prod-brand">JinkoSolar</div><h3 class="prod-name">Tấm Pin N-Type 605W</h3><div class="prod-code">Mã SP: JKM-605N-78HL4</div><div class="prod-specs"><span><i class="fa-solid fa-bolt"></i> 605 Wp</span><span><i class="fa-solid fa-percent"></i> 22.6%</span></div><button class="prod-cta">Xem Chi Tiết <i class="fa-solid fa-arrow-right"></i></button></div>
+                </div>
+
+                <!-- Inverters -->
+                <div class="prod-card reveal-up" data-cat="inverters" data-brand="Sungrow" data-badge="Mới" data-name="Inverter Hybrid SH10RT SH10RT-V122" onclick="openProductDetail('inv-sungrow-5k')">
+                    <div class="prod-img-wrap"><img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/product_inverter_sungrow_1783010754311.jpg" alt="Sungrow Hybrid"><div class="prod-badge new">Mới</div><div class="prod-zoom-hint"><i class="fa-solid fa-eye"></i></div></div>
+                    <div class="prod-body"><div class="prod-brand">Sungrow</div><h3 class="prod-name">Inverter Hybrid SH10RT</h3><div class="prod-code">Mã SP: SH10RT-V122</div><div class="prod-specs"><span><i class="fa-solid fa-plug"></i> 10 kW</span><span><i class="fa-solid fa-shield-halved"></i> IP65</span></div><button class="prod-cta">Xem Chi Tiết <i class="fa-solid fa-arrow-right"></i></button></div>
+                </div>
+
+                <div class="prod-card reveal-up delay-1" data-cat="inverters" data-brand="Fronius" data-badge="" data-name="Inverter Symo Advanced 20kW FRO-SYMO-20.0-3" onclick="openProductDetail('inv-sungrow-5k')">
+                    <div class="prod-img-wrap"><img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/product_inverter_sungrow_1783010754311.jpg" alt="Fronius Symo"><div class="prod-zoom-hint"><i class="fa-solid fa-eye"></i></div></div>
+                    <div class="prod-body"><div class="prod-brand">Fronius</div><h3 class="prod-name">Inverter Symo Advanced 20kW</h3><div class="prod-code">Mã SP: FRO-SYMO-20.0-3</div><div class="prod-specs"><span><i class="fa-solid fa-plug"></i> 20 kW</span><span><i class="fa-solid fa-wifi"></i> WiFi</span></div><button class="prod-cta">Xem Chi Tiết <i class="fa-solid fa-arrow-right"></i></button></div>
+                </div>
+
+                <!-- Batteries -->
+                <div class="prod-card reveal-up" data-cat="batteries" data-brand="Sungrow" data-badge="Hot" data-name="Pin Lưu Trữ SBR096 SBR096-B" onclick="openProductDetail('bat-sungrow-sh')">
+                    <div class="prod-img-wrap"><img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/product_battery_storage_1783010764817.jpg" alt="Sungrow Battery"><div class="prod-badge">Hot</div><div class="prod-zoom-hint"><i class="fa-solid fa-eye"></i></div></div>
+                    <div class="prod-body"><div class="prod-brand">Sungrow</div><h3 class="prod-name">Pin Lưu Trữ SBR096</h3><div class="prod-code">Mã SP: SBR096-B</div><div class="prod-specs"><span><i class="fa-solid fa-battery-full"></i> 9.6 kWh</span><span><i class="fa-solid fa-rotate"></i> 6000 Cycles</span></div><button class="prod-cta">Xem Chi Tiết <i class="fa-solid fa-arrow-right"></i></button></div>
+                </div>
+
+                <div class="prod-card reveal-up delay-1" data-cat="batteries" data-brand="BYD" data-badge="" data-name="Pin Lưu Trữ Battery-Box Premium HVS BYD-HVS-10.2" onclick="openProductDetail('bat-sungrow-sh')">
+                    <div class="prod-img-wrap"><img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/product_battery_storage_1783010764817.jpg" alt="BYD Battery"><div class="prod-zoom-hint"><i class="fa-solid fa-eye"></i></div></div>
+                    <div class="prod-body"><div class="prod-brand">BYD</div><h3 class="prod-name">Pin Lưu Trữ Battery-Box HVS</h3><div class="prod-code">Mã SP: BYD-HVS-10.2</div><div class="prod-specs"><span><i class="fa-solid fa-battery-full"></i> 10.2 kWh</span><span><i class="fa-solid fa-rotate"></i> 10000 Cycles</span></div><button class="prod-cta">Xem Chi Tiết <i class="fa-solid fa-arrow-right"></i></button></div>
+                </div>
+
+                <!-- Accessories -->
+                <div class="prod-card reveal-up" data-cat="accessories" data-brand="K2 Systems" data-badge="" data-name="Khung Nhôm Định Hình Rail K2-RAIL-4050" onclick="openProductDetail('acc-mount-rail')">
+                    <div class="prod-img-wrap"><img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_1_1783009346227.jpg" alt="Khung nhôm"><div class="prod-zoom-hint"><i class="fa-solid fa-eye"></i></div></div>
+                    <div class="prod-body"><div class="prod-brand">K2 Systems</div><h3 class="prod-name">Khung Nhôm Định Hình (Rail)</h3><div class="prod-code">Mã SP: K2-RAIL-4050</div><div class="prod-specs"><span><i class="fa-solid fa-ruler"></i> 4050mm</span><span><i class="fa-solid fa-droplet"></i> Chống ăn mòn</span></div><button class="prod-cta">Xem Chi Tiết <i class="fa-solid fa-arrow-right"></i></button></div>
+                </div>
+
+                <!-- Empty State -->
+                <div class="prod-empty" id="prod-empty" style="display:none">
+                    <i class="fa-solid fa-box-open"></i>
+                    <p>Không tìm thấy sản phẩm phù hợp.<br>Hãy thử điều chỉnh bộ lọc.</p>
+                    <button onclick="resetAllFilters()">Xóa Bộ Lọc</button>
+                </div>
+
+            </div><!-- /#product-grid -->
+        </div><!-- .products-main -->
+    </div><!-- .products-layout -->
+    </div>
+</div><!-- /#page-products -->
+
+<div class="page" id="page-news">
+    <div class="page-hero bg-dark-grad">
+        <div class="container">
+            <div class="breadcrumb"><span onclick="navigateTo('home')">Trang chủ</span> <i class="fa-solid fa-chevron-right fa-xs"></i> <span>Tin Tức</span></div>
+            <h1 class="page-hero-title">Tin Tức &amp; Kiến Thức</h1>
+            <p>Cập nhật thông tin mới nhất về năng lượng mặt trời và chính sách năng lượng.</p>
+        </div>
+    </div>
+    <div class="container section-pad">
+        <div class="news-layout">
+            <!-- Sidebar -->
+            <aside class="news-sidebar reveal-left">
+                <div class="ns-section">
+                    <h4>Danh Mục</h4>
+                    <ul class="ns-cats">
+                        <li class="active" onclick="filterNews('all', this)"><i class="fa-solid fa-circle-dot"></i> Tất cả bài viết <span>12</span></li>
+                        <li onclick="filterNews('company', this)"><i class="fa-solid fa-building"></i> Tin công ty <span>5</span></li>
+                        <li onclick="filterNews('knowledge', this)"><i class="fa-solid fa-book-open"></i> Kiến thức điện mặt trời <span>4</span></li>
+                        <li onclick="filterNews('policy', this)"><i class="fa-solid fa-landmark"></i> Cập nhật chính sách <span>3</span></li>
+                    </ul>
+                </div>
+                <div class="ns-section">
+                    <h4>Bài Viết Nổi Bật</h4>
+                    <div class="ns-featured" onclick="openArticle('art-001')">
+                        <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/news_tech_1783010788004.jpg" alt="">
+                        <p>Hiểu về hệ thống điện mặt trời Hybrid On/Off-grid</p>
+                    </div>
+                    <div class="ns-featured" onclick="openArticle('art-003')">
+                        <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/news_policy_1783010776587.jpg" alt="">
+                        <p>Chính sách điện mặt trời mái nhà 2025</p>
+                    </div>
+                </div>
+            </aside>
+            <!-- Main Articles -->
+            <div class="news-main">
+                <div class="news-grid" id="news-grid">
+
+                    <article class="news-card reveal-up" data-newscat="company" onclick="openArticle('art-001')">
+                        <div class="nc-img">
+                            <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/news_tech_1783010788004.jpg" alt="">
+                            <span class="nc-cat company">Tin Công Ty</span>
+                        </div>
+                        <div class="nc-body">
+                            <div class="nc-meta"><i class="fa-regular fa-calendar"></i> 28/06/2026 &nbsp;|&nbsp; <i class="fa-regular fa-clock"></i> 5 phút đọc</div>
+                            <h3>GreenTech Solar Hoàn Thành Dự Án 2.5 MWp Tại Thái Nguyên</h3>
+                            <p>Hệ thống điện mặt trời mái nhà lớn nhất tỉnh Thái Nguyên vừa được GreenTech Solar chính thức đưa vào vận hành, cung cấp điện ổn định cho nhà máy sản xuất với công suất 2.5 MWp.</p>
+                            <div class="nc-footer"><span class="read-more">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></span></div>
+                        </div>
+                    </article>
+
+                    <article class="news-card reveal-up delay-1" data-newscat="knowledge" onclick="openArticle('art-002')">
+                        <div class="nc-img">
+                            <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_1_1783009346227.jpg" alt="">
+                            <span class="nc-cat knowledge">Kiến Thức</span>
+                        </div>
+                        <div class="nc-body">
+                            <div class="nc-meta"><i class="fa-regular fa-calendar"></i> 25/06/2026 &nbsp;|&nbsp; <i class="fa-regular fa-clock"></i> 8 phút đọc</div>
+                            <h3>Giải Mã Hệ Thống Hybrid: Khi Nào Nên Lắp Pin Lưu Trữ?</h3>
+                            <p>Hệ thống Hybrid kết hợp điện mặt trời với pin lưu trữ đang là xu hướng được nhiều gia đình và doanh nghiệp lựa chọn. Bài viết phân tích chi tiết ưu nhược điểm và điều kiện phù hợp.</p>
+                            <div class="nc-footer"><span class="read-more">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></span></div>
+                        </div>
+                    </article>
+
+                    <article class="news-card reveal-up delay-2" data-newscat="policy" onclick="openArticle('art-003')">
+                        <div class="nc-img">
+                            <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/news_policy_1783010776587.jpg" alt="">
+                            <span class="nc-cat policy">Chính Sách</span>
+                        </div>
+                        <div class="nc-body">
+                            <div class="nc-meta"><i class="fa-regular fa-calendar"></i> 20/06/2026 &nbsp;|&nbsp; <i class="fa-regular fa-clock"></i> 6 phút đọc</div>
+                            <h3>Chính Sách Điện Mặt Trời Mái Nhà 2025: Những Điểm Mới Doanh Nghiệp Cần Biết</h3>
+                            <p>Bộ Công Thương vừa ban hành Thông tư mới hướng dẫn thực hiện cơ chế mua bán điện mặt trời mái nhà. Dưới đây là tóm tắt những điểm thay đổi quan trọng nhất.</p>
+                            <div class="nc-footer"><span class="read-more">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></span></div>
+                        </div>
+                    </article>
+
+                    <article class="news-card reveal-up" data-newscat="company" onclick="openArticle('art-001')">
+                        <div class="nc-img">
+                            <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_3_1783009367754.jpg" alt="">
+                            <span class="nc-cat company">Tin Công Ty</span>
+                        </div>
+                        <div class="nc-body">
+                            <div class="nc-meta"><i class="fa-regular fa-calendar"></i> 15/06/2026 &nbsp;|&nbsp; <i class="fa-regular fa-clock"></i> 4 phút đọc</div>
+                            <h3>GreenTech Solar Ký Kết Hợp Tác Chiến Lược Với Tập Đoàn LONGi</h3>
+                            <p>Thỏa thuận hợp tác này sẽ giúp GreenTech Solar tiếp cận nguồn tấm pin N-Type Hi-MO 6 với giá ưu đãi và dịch vụ hậu mãi ưu tiên trong 5 năm tới.</p>
+                            <div class="nc-footer"><span class="read-more">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></span></div>
+                        </div>
+                    </article>
+
+                    <article class="news-card reveal-up delay-1" data-newscat="knowledge" onclick="openArticle('art-002')">
+                        <div class="nc-img">
+                            <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/solar_project_2_1783009357654.jpg" alt="">
+                            <span class="nc-cat knowledge">Kiến Thức</span>
+                        </div>
+                        <div class="nc-body">
+                            <div class="nc-meta"><i class="fa-regular fa-calendar"></i> 10/06/2026 &nbsp;|&nbsp; <i class="fa-regular fa-clock"></i> 7 phút đọc</div>
+                            <h3>5 Sai Lầm Thường Gặp Khi Lắp Điện Mặt Trời Hộ Gia Đình</h3>
+                            <p>Nhiều gia đình gặp phải tình trạng hệ thống không hoạt động đúng hiệu suất sau khi lắp đặt. Bài viết chỉ ra 5 sai lầm phổ biến và cách tránh chúng.</p>
+                            <div class="nc-footer"><span class="read-more">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></span></div>
+                        </div>
+                    </article>
+
+                    <article class="news-card reveal-up delay-2" data-newscat="policy" onclick="openArticle('art-003')">
+                        <div class="nc-img">
+                            <img src="file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/news_policy_1783010776587.jpg" alt="">
+                            <span class="nc-cat policy">Chính Sách</span>
+                        </div>
+                        <div class="nc-body">
+                            <div class="nc-meta"><i class="fa-regular fa-calendar"></i> 05/06/2026 &nbsp;|&nbsp; <i class="fa-regular fa-clock"></i> 5 phút đọc</div>
+                            <h3>Hướng Dẫn Thủ Tục Đấu Nối Điện Mặt Trời Lên Lưới EVN Mới Nhất</h3>
+                            <p>Quy trình đấu nối điện mặt trời vào lưới EVN đã được đơn giản hóa đáng kể theo Thông tư mới. GreenTech Solar tổng hợp đầy đủ các bước thủ tục cần thiết.</p>
+                            <div class="nc-footer"><span class="read-more">Đọc tiếp <i class="fa-solid fa-arrow-right"></i></span></div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- /#page-news -->
+
+</div><!-- end #app -->
+
+<!-- === FOOTER === -->
+<footer class="footer">
+    <div class="footer-top">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="logo text-white"><div class="logo-icon"><i class="fa-solid fa-bolt"></i></div><span class="logo-text">TEST<span class="logo-slogan" style="opacity:.7">Năng lượng · Tỏa sáng</span></span></div>
+                <p class="footer-desc">Tiên phong trong giải pháp năng lượng tái tạo, kiến tạo tương lai xanh bền vững cho Việt Nam.</p>
+                <div class="footer-social">
+                    <a href="javascript:void(0)"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="javascript:void(0)"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="javascript:void(0)"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h5>Giải Pháp</h5>
+                <ul>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('solutions')">Doanh nghiệp &amp; Nhà máy</a></li>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('solutions')">Hộ gia đình</a></li>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('solutions')">Nông nghiệp</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h5>Công Ty</h5>
+                <ul>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('about')">Về chúng tôi</a></li>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('projects')">Dự án tiêu biểu</a></li>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('contact')">Liên hệ</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h5>Liên Hệ</h5>
+                <p><i class="fa-solid fa-phone"></i> 0900.123.456</p>
+                <p><i class="fa-solid fa-envelope"></i> info@greentechsolar.vn</p>
+                <p><i class="fa-solid fa-location-dot"></i> Cầu Giấy, Hà Nội</p>
+                <div class="cert-badges">
+                    <span class="cert-badge">ISO 9001</span>
+                    <span class="cert-badge">Tier 1</span>
+                    <span class="cert-badge">Bloomberg</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <p>&copy; 2026 TEST. Bảo lưu mọi quyền.</p>
+            <p><a href="javascript:void(0)">Chính sách bảo mật</a> &nbsp;|&nbsp; <a href="javascript:void(0)">Điều khoản sử dụng</a></p>
+        </div>
+    </div>
+</footer>
+
+<!-- ========================================================
+     PRODUCT PAGES (appended to DOM, navigated via SPA)
+     ======================================================== -->
+
+<!-- ===== PAGE: PRODUCTS ===== -->
+
+
+
+<!-- ===== PAGE: PRODUCT DETAIL ===== -->
+<div class="page" id="page-product-detail">
+    <div class="container section-pad" style="padding-top: 120px">
+        <div class="breadcrumb" style="margin-bottom:24px">
+            <span onclick="navigateTo('home')">Trang chủ</span>
+            <i class="fa-solid fa-chevron-right fa-xs"></i>
+            <span onclick="navigateTo('products')">Sản Phẩm</span>
+            <i class="fa-solid fa-chevron-right fa-xs"></i>
+            <span id="pd-breadcrumb">Chi Tiết</span>
+        </div>
+        <div class="pd-grid">
+            <!-- Gallery -->
+            <div class="pd-gallery reveal-left">
+                <div class="pd-main-img" id="pd-main-img">
+                    <img id="pd-img-main" src="" alt="">
+                    <div class="pd-zoom-overlay" onclick="openZoom()">
+                        <i class="fa-solid fa-magnifying-glass-plus"></i> Phóng To
+                    </div>
+                </div>
+                <div class="pd-thumbs" id="pd-thumbs"></div>
+            </div>
+            <!-- Info -->
+            <div class="pd-info reveal-right">
+                <div class="pd-brand" id="pd-brand"></div>
+                <h1 class="pd-title" id="pd-title"></h1>
+                <div class="pd-code" id="pd-code"></div>
+                <div class="pd-divider"></div>
+                <div class="pd-highlights" id="pd-highlights"></div>
+                <div class="pd-specs-table" id="pd-specs-table"></div>
+                <div class="pd-actions">
+                    <button class="btn-pd-quote" onclick="openQuotePopup()">
+                        <i class="fa-solid fa-file-invoice"></i> Liên Hệ Nhận Báo Giá
+                    </button>
+                    <a href="tel:0900123456" class="btn-pd-call">
+                        <i class="fa-solid fa-phone-volume"></i> 0900.123.456
+                    </a>
+                </div>
+                <div class="pd-trust">
+                    <span><i class="fa-solid fa-shield-halved"></i> Hàng chính hãng 100%</span>
+                    <span><i class="fa-solid fa-truck-fast"></i> Giao hàng toàn quốc</span>
+                    <span><i class="fa-solid fa-headset"></i> Hỗ trợ kỹ thuật 24/7</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- /#page-product-detail -->
+
+
+<!-- ===== PAGE: NEWS ===== -->
+
+
+
+<!-- ===== PAGE: ARTICLE DETAIL ===== -->
+<div class="page" id="page-article">
+    <div class="container" style="max-width:900px; padding-top:120px; padding-bottom:80px">
+        <div class="breadcrumb" style="margin-bottom:28px">
+            <span onclick="navigateTo('home')">Trang chủ</span>
+            <i class="fa-solid fa-chevron-right fa-xs"></i>
+            <span onclick="navigateTo('news')">Tin Tức</span>
+            <i class="fa-solid fa-chevron-right fa-xs"></i>
+            <span id="art-breadcrumb">Bài viết</span>
+        </div>
+        <div class="art-header reveal-up">
+            <span class="nc-cat" id="art-cat-badge">Tin Công Ty</span>
+            <h1 class="art-title" id="art-title"></h1>
+            <div class="art-meta" id="art-meta"></div>
+        </div>
+        <div class="art-cover reveal-up">
+            <img id="art-cover-img" src="" alt="">
+        </div>
+        <div class="art-body reveal-up" id="art-body"></div>
+        <div class="art-back reveal-up">
+            <button class="btn-outline-dark" onclick="navigateTo('news')"><i class="fa-solid fa-arrow-left"></i> Quay Lại Tin Tức</button>
+        </div>
+    </div>
+</div><!-- /#page-article -->
+
+
+<!-- ========================================================
+     MODALS & OVERLAYS
+     ======================================================== -->
+
+<!-- Quote Popup -->
+<div class="popup-overlay" id="quote-overlay" onclick="closeQuotePopup()">
+    <div class="quote-popup" onclick="event.stopPropagation()">
+        <button class="popup-close" onclick="closeQuotePopup()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="popup-header">
+            <div class="popup-icon"><i class="fa-solid fa-file-invoice"></i></div>
+            <h3>Liên Hệ Nhận Báo Giá</h3>
+            <p>Điền thông tin — chuyên gia sẽ gọi lại trong 30 phút</p>
+        </div>
+        <form class="popup-form" onsubmit="handleQuoteSubmit(event)">
+            <div class="form-group">
+                <label>Họ và Tên *</label>
+                <input type="text" id="q-name" placeholder="Nguyễn Văn A" required>
+            </div>
+            <div class="form-group">
+                <label>Số Điện Thoại *</label>
+                <input type="tel" id="q-phone" placeholder="0900 000 000" required>
+            </div>
+            <div class="form-group">
+                <label>Sản phẩm quan tâm</label>
+                <input type="text" id="q-product" readonly>
+            </div>
+            <div class="form-group">
+                <label>Nhu Cầu / Ghi Chú</label>
+                <textarea id="q-note" rows="3" placeholder="Công suất cần lắp, vị trí, câu hỏi..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Gửi Yêu Cầu <i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+    </div>
+</div>
+
+<!-- Image Zoom Modal -->
+<div class="zoom-overlay" id="zoom-overlay" onclick="closeZoom()">
+    <button class="zoom-close" onclick="closeZoom()"><i class="fa-solid fa-xmark"></i></button>
+    <img id="zoom-img" src="" alt="">
+</div>
+
+<!-- Success Toast -->
+<div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span>Gửi thành công! Chúng tôi sẽ liên hệ trong 24h.</span>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
