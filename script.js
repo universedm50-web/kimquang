@@ -44,9 +44,15 @@
 
     // ── Sticky Header ────────────────────────────────────────
     const header = document.getElementById('header');
-    window.addEventListener('scroll', () => {
-        header.classList.toggle('scrolled', window.scrollY > 40);
-    });
+    function updateHeaderState() {
+        const activePage = document.querySelector('.page.active');
+        const pageId = activePage ? activePage.id : '';
+        const lightPages = ['page-products', 'page-product-detail', 'page-article'];
+        const forceSolid = lightPages.includes(pageId);
+        header.classList.toggle('scrolled', forceSolid || window.scrollY > 40);
+    }
+    window.addEventListener('scroll', updateHeaderState);
+    window.updateHeaderState = updateHeaderState;
 
     // ── Floating Particles (Hero) ────────────────────────────
     function createParticles() {
@@ -134,6 +140,11 @@
             }, 100);
         } else {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Cập nhật trạng thái màu sắc menu header theo trang mới
+        if (typeof updateHeaderState === 'function') {
+            updateHeaderState();
         }
     };
 
