@@ -55,7 +55,14 @@
                         <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('solutions', 'sol-agriculture')"><i class="fa-solid fa-tractor"></i> Nông Nghiệp</a>
                     </div>
                 </li>
-                <li><a href="javascript:void(0)" class="nav-link" data-page="investment" onclick="navigateTo('investment')">Đầu Tư Môi Giới</a></li>
+                <li class="has-dropdown">
+                    <a href="javascript:void(0)" class="nav-link" data-page="investment" onclick="navigateTo('investment')">Đầu Tư Môi Giới <i class="fa-solid fa-chevron-down fa-xs"></i></a>
+                    <div class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('investment', 'inv-esco')"><i class="fa-solid fa-file-contract"></i> Giải pháp ESCO/PPA</a>
+                        <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('investment', 'inv-broker')"><i class="fa-solid fa-handshake-simple"></i> Kết nối Quỹ tín dụng xanh</a>
+                        <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('investment', 'inv-epc')"><i class="fa-solid fa-shield-halved"></i> Đòn bẩy EPC &amp; O&amp;M</a>
+                    </div>
+                </li>
                 <li><a href="javascript:void(0)" class="nav-link" data-page="projects" onclick="navigateTo('projects')">Dự Án</a></li>
                 <li><a href="javascript:void(0)" class="nav-link" data-page="news" onclick="navigateTo('news')">Tin Tức</a></li>
                 <li><a href="javascript:void(0)" class="nav-link" data-page="contact" onclick="navigateTo('contact')">Liên Hệ</a></li>
@@ -424,7 +431,7 @@
 
             <div class="sol-detail-grid">
                 <!-- Mô hình 1 -->
-                <div class="sol-detail-card reveal-up">
+                <div class="sol-detail-card reveal-up" id="inv-esco">
                     <img src="images/investment_esco.jpg" alt="Giải pháp ESCO/PPA">
                     <div class="sol-detail-body">
                         <div class="sol-icon"><i class="fa-solid fa-file-contract"></i></div>
@@ -441,7 +448,7 @@
                 </div>
                 
                 <!-- Mô hình 2 -->
-                <div class="sol-detail-card reveal-up delay-1">
+                <div class="sol-detail-card reveal-up delay-1" id="inv-broker">
                     <img src="images/investment_broker.jpg" alt="Môi giới Quỹ tín dụng xanh">
                     <div class="sol-detail-body">
                         <div class="sol-icon"><i class="fa-solid fa-handshake-simple"></i></div>
@@ -458,7 +465,7 @@
                 </div>
                 
                 <!-- Mô hình 3 -->
-                <div class="sol-detail-card reveal-up delay-2">
+                <div class="sol-detail-card reveal-up delay-2" id="inv-epc">
                     <img src="images/investment_epc.jpg" alt="Đòn bẩy tài chính EPC & O&M">
                     <div class="sol-detail-body">
                         <div class="sol-icon"><i class="fa-solid fa-shield-halved"></i></div>
