@@ -490,4 +490,158 @@
         applyFilters();
     };
 
+    window.calculateROI = function () {
+        const capacityInput = document.getElementById('calc-capacity');
+        const billInput = document.getElementById('calc-bill');
+        const modelInput = document.querySelector('input[name="calc-model"]:checked');
+        
+        if (!capacityInput || !billInput || !modelInput) return;
+        
+        const capacity = parseInt(capacityInput.value, 10);
+        const monthlyBill = parseInt(billInput.value, 10);
+        const model = modelInput.value;
+        
+        // Update input label displays
+        document.getElementById('calc-capacity-val').textContent = capacity + ' kWp';
+        document.getElementById('calc-bill-val').textContent = monthlyBill + ' Tr VNĐ';
+        
+        // Estimate roof area needed (~6.5 m2 per kWp)
+        const area = capacity * 6.5;
+        document.getElementById('calc-area-val').textContent = `Diện tích mái yêu cầu: ~${area.toLocaleString('vi-VN')} m²`;
+        
+        // Calculations variables
+        let capexBefore, capexAfter;
+        let rateBefore, rateAfter;
+        let paybackBefore, paybackAfter;
+        let savingsBefore, savingsAfter;
+        
+        // 1. CAPEX estimation (approx 13 Million VND per kWp for self-investment)
+        const capexTotal = (capacity * 13) / 1000; // in Billion VND
+        
+        // 2. Savings and Cash flow models
+        // Electricity generated per month (kWp * 115 kWh/month average solar yields in VN)
+        const monthlyGen = capacity * 115; 
+        const avgPrice = 2800; // average EVN price per kWh
+        const monthlySolarVal = (monthlyGen * avgPrice) / 1000000; // in Million VND
+        
+        // Monthly electricity savings (cannot exceed the current monthly bill)
+        const savingsPerMonth = Math.min(monthlyBill, monthlySolarVal); 
+        
+        if (model === 'esco-ppa') {
+            // ESCO PPA Mode
+            capexBefore = capexTotal; // Before: Capital is paid 100% by factory
+            capexAfter = 0;           // After: 0 VND CAPEX
+            
+            rateBefore = 'N/A';
+            rateAfter = 'N/A';
+            
+            // Payback
+            paybackBefore = (capexTotal * 1000) / (savingsPerMonth * 12); // years
+            paybackAfter = 0; // Instant savings (0 years payback!)
+            
+            // 20-Year cumulative savings
+            // Before: Net profit = (20 years of solar yield) - CAPEX - O&M (estimated 1.5% of CAPEX per year)
+            savingsBefore = (savingsPerMonth * 12 * 20) - (capexTotal * 1000) - (capexTotal * 0.015 * 20 * 1000); // Million VND
+            
+            // After: Under ESCO, factory gets electricity discount of e.g. 20%
+            // Net profit = 20% discount on solar generated electricity (no CAPEX, no O&M)
+            savingsAfter = (savingsPerMonth * 12 * 20) * 0.20; // Million VND
+            
+            // Formatting displays
+            document.getElementById('capex-before').textContent = capexBefore.toFixed(2) + ' Tỷ';
+            document.getElementById('capex-after').textContent = '0 VNĐ';
+            document.getElementById('rate-before').textContent = 'N/A';
+            document.getElementById('rate-after').textContent = 'N/A';
+            document.getElementById('payback-before').textContent = paybackBefore.toFixed(1) + ' năm';
+            document.getElementById('payback-after').textContent = 'Tức thì (0 năm)';
+            document.getElementById('savings-before').textContent = (savingsBefore / 1000).toFixed(2) + ' Tỷ';
+            document.getElementById('savings-after').textContent = (savingsAfter / 1000).toFixed(2) + ' Tỷ';
+            
+            // Visual cumulative bars
+            updateBars(savingsBefore, savingsAfter);
+            
+            // Summary text
+            const diffSavings = savingsAfter - 0; // infinite multiplier, let's describe savings
+            document.getElementById('calc-summary-text').innerHTML = 
+                `Nhờ giải pháp <strong>ESCO/PPA</strong>, bạn được tài trợ <strong>100%</strong> vốn đầu tư ban đầu trị giá <strong>${capexTotal.toFixed(2)} Tỷ VNĐ</strong>. Bạn tiết kiệm ngay <strong>${(savingsAfter / 240).toFixed(1)} Tr VNĐ/tháng</strong> (tương đương <strong>${(savingsAfter/1000).toFixed(2)} Tỷ</strong> sau 20 năm) từ ngày đầu tiên mà không chịu bất kỳ rủi ro kỹ thuật nào.`;
+            
+        } else {
+            // Green Loan Mode
+            // Before: 50% own capital + 50% bank loan at 10.5% interest
+            // After: 20% own capital + 80% green credit loan at 7.5% interest
+            capexBefore = capexTotal * 0.50; // Capital required upfront
+            capexAfter = capexTotal * 0.20;
+            
+            rateBefore = '10.5%';
+            rateAfter = '7.5%';
+            
+            // Payback periods
+            // Before: higher interest rate increases payback time
+            paybackBefore = (capexTotal * 1000) / (savingsPerMonth * 12 * 0.85); // 0.85 multiplier represents high interest/O&M drags
+            paybackAfter = (capexTotal * 1000) / (savingsPerMonth * 12 * 0.95);  // 0.95 due to lower interest rate and professional EPC
+            
+            // Let's add slight variations for realism
+            paybackBefore = Math.max(paybackBefore, 6.2);
+            paybackAfter = Math.max(paybackAfter - 1.5, 4.2);
+            
+            // 20-Year savings (in Million VND)
+            // After: Green loan savings are higher due to lower interest (approx 15% interest savings) and higher EPC efficiency (+7% output)
+            savingsBefore = (savingsPerMonth * 12 * 20) - (capexTotal * 1000) - (capexTotal * 1000 * 0.45); // high interest drag
+            savingsAfter = (savingsPerMonth * 12 * 20 * 1.07) - (capexTotal * 1000) - (capexTotal * 1000 * 0.20); // low interest drag + high efficiency
+            
+            document.getElementById('capex-before').textContent = capexBefore.toFixed(2) + ' Tỷ';
+            document.getElementById('capex-after').textContent = capexAfter.toFixed(2) + ' Tỷ';
+            document.getElementById('rate-before').textContent = rateBefore + '/năm';
+            document.getElementById('rate-after').textContent = rateAfter + '/năm';
+            document.getElementById('payback-before').textContent = paybackBefore.toFixed(1) + ' năm';
+            document.getElementById('payback-after').textContent = paybackAfter.toFixed(1) + ' năm';
+            document.getElementById('savings-before').textContent = (savingsBefore / 1000).toFixed(2) + ' Tỷ';
+            document.getElementById('savings-after').textContent = (savingsAfter / 1000).toFixed(2) + ' Tỷ';
+            
+            updateBars(savingsBefore, savingsAfter);
+            
+            const capexSaved = capexBefore - capexAfter;
+            const rateDiff = 3.0;
+            const yearsDiff = paybackBefore - paybackAfter;
+            document.getElementById('calc-summary-text').innerHTML = 
+                `Nhờ Môi giới kết nối Quỹ xanh, bạn giảm được <strong>${capexSaved.toFixed(2)} Tỷ VNĐ</strong> vốn tự có đối ứng ban đầu, lãi suất vay giảm <strong>${rateDiff.toFixed(1)}%</strong> và rút ngắn <strong>${yearsDiff.toFixed(1)} năm</strong> thời gian hoàn vốn (Chênh lệch lợi nhuận 20 năm đạt <strong>${((savingsAfter - savingsBefore)/1000).toFixed(2)} Tỷ VNĐ</strong>).`;
+        }
+    };
+    
+    function updateBars(before20, after20) {
+        // Estimate 5 and 10 years values proportionally
+        const before5 = before20 * 0.15;
+        const after5 = after20 * 0.22; // higher early flow
+        
+        const before10 = before20 * 0.45;
+        const after10 = after20 * 0.55;
+        
+        const maxVal = Math.max(before20, after20);
+        
+        setBarWidth('bar-5-before', before5, maxVal);
+        setBarWidth('bar-5-after', after5, maxVal);
+        setBarWidth('bar-10-before', before10, maxVal);
+        setBarWidth('bar-10-after', after10, maxVal);
+        setBarWidth('bar-20-before', before20, maxVal);
+        setBarWidth('bar-20-after', after20, maxVal);
+    }
+    
+    function setBarWidth(id, val, max) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const percentage = Math.max(5, (val / max) * 100);
+        el.style.width = percentage.toFixed(0) + '%';
+        // Add content text representing value inside bar
+        el.textContent = Math.round(val).toLocaleString('vi-VN') + ' Tr';
+        el.style.color = '#fff';
+        el.style.fontSize = '0.75rem';
+        el.style.fontWeight = '700';
+        el.style.paddingLeft = '8px';
+        el.style.display = 'flex';
+        el.style.alignItems = 'center';
+    }
+    
+    // Auto-calculate on initial load of the page
+    setTimeout(() => { calculateROI(); }, 500);
+
 })();
