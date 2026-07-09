@@ -493,7 +493,7 @@
             <div class="container">
                 <div class="section-head reveal-up" style="text-align: center; margin-bottom: 40px;">
                     <div class="section-label"><i class="fa-solid fa-calculator"></i> BỘ TÍNH TOÁN</div>
-                    <h2 class="section-h2">Ước Tính Hiệu Quả Đầu Tư &amp; Tiết Kiệm</h2>
+                    <h2 class="section-h2">Ước Tính Hiệu Quả Đầu Đầu Tư &amp; Tiết Kiệm</h2>
                     <p class="section-sub">Nhập thông tin dự án để thấy rõ sự chênh lệch lợi ích tài chính trước và sau khi có môi giới/quỹ xanh.</p>
                 </div>
 
@@ -501,24 +501,42 @@
                     <!-- Calculator Inputs -->
                     <div class="calc-card inputs-card glass-card">
                         <h3>Cấu Hình Dự Án</h3>
-                        <div class="calc-form-group">
-                            <div class="slider-header" style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                                <label for="calc-capacity" style="font-weight:600;">Công suất lắp đặt:</label>
-                                <span class="slider-val" id="calc-capacity-val" style="color:var(--primary); font-weight:700;">500 kWp</span>
+                        
+                        <div class="calc-presets-group" style="margin-bottom: 24px;">
+                            <label style="font-weight:600; display:block; margin-bottom:10px;">Quy mô dự án mẫu:</label>
+                            <div class="preset-buttons-grid" style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                <button type="button" class="preset-btn" onclick="applyPreset(15, 10, this)">
+                                    <span class="preset-title">Hộ Gia Đình</span>
+                                    <span class="preset-desc">15 kWp - 10 Tr/tháng</span>
+                                </button>
+                                <button type="button" class="preset-btn" onclick="applyPreset(100, 50, this)">
+                                    <span class="preset-title">Doanh Nghiệp Nhỏ</span>
+                                    <span class="preset-desc">100 kWp - 50 Tr/tháng</span>
+                                </button>
+                                <button type="button" class="preset-btn active" onclick="applyPreset(500, 200, this)">
+                                    <span class="preset-title">Nhà Máy Vừa</span>
+                                    <span class="preset-desc">500 kWp - 200 Tr/tháng</span>
+                                </button>
+                                <button type="button" class="preset-btn" onclick="applyPreset(1500, 600, this)">
+                                    <span class="preset-title">Nhà Máy Lớn</span>
+                                    <span class="preset-desc">1500 kWp - 600 Tr/tháng</span>
+                                </button>
                             </div>
-                            <input type="range" id="calc-capacity" min="100" max="2000" step="50" value="500" oninput="calculateROI()" style="width:100%;">
-                            <span class="calc-hint" id="calc-area-val" style="display:block; font-size:0.85rem; color:var(--muted); margin-top:4px;">Diện tích mái yêu cầu: ~3,250 m²</span>
+                        </div>
+
+                        <div class="calc-inputs-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;">
+                            <div class="calc-form-group">
+                                <label for="calc-capacity" style="font-weight:600; display:block; margin-bottom:6px;">Công suất (kWp):</label>
+                                <input type="number" id="calc-capacity" value="500" min="5" max="5000" oninput="customInputROI()" style="width:100%; padding:10px; border:1px solid rgba(0,0,0,0.15); border-radius:8px; font-weight:600;">
+                                <span class="calc-hint" id="calc-area-val" style="display:block; font-size:0.75rem; color:var(--muted); margin-top:4px;">Mái yêu cầu: ~3,250 m²</span>
+                            </div>
+                            <div class="calc-form-group">
+                                <label for="calc-bill" style="font-weight:600; display:block; margin-bottom:6px;">Tiền điện (Tr/tháng):</label>
+                                <input type="number" id="calc-bill" value="200" min="1" max="5000" oninput="customInputROI()" style="width:100%; padding:10px; border:1px solid rgba(0,0,0,0.15); border-radius:8px; font-weight:600;">
+                            </div>
                         </div>
 
                         <div class="calc-form-group" style="margin-top:20px;">
-                            <div class="slider-header" style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                                <label for="calc-bill" style="font-weight:600;">Tiền điện TB hàng tháng:</label>
-                                <span class="slider-val" id="calc-bill-val" style="color:var(--primary); font-weight:700;">200 Tr VNĐ</span>
-                            </div>
-                            <input type="range" id="calc-bill" min="50" max="1000" step="10" value="200" oninput="calculateROI()" style="width:100%;">
-                        </div>
-
-                        <div class="calc-form-group" style="margin-top:24px;">
                             <label style="font-weight:600; display:block; margin-bottom:12px;">Mô hình đầu tư mong muốn:</label>
                             <div class="calc-radio-group" style="display:flex; flex-direction:column; gap:10px;">
                                 <label class="calc-radio-label" style="display:flex; align-items:center; gap:8px; cursor:pointer;">

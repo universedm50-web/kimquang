@@ -507,6 +507,23 @@
         applyFilters();
     };
 
+    window.applyPreset = function (capacity, bill, btn) {
+        const capacityInput = document.getElementById('calc-capacity');
+        const billInput = document.getElementById('calc-bill');
+        if (capacityInput) capacityInput.value = capacity;
+        if (billInput) billInput.value = bill;
+
+        document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+
+        calculateROI();
+    };
+
+    window.customInputROI = function () {
+        document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+        calculateROI();
+    };
+
     window.calculateROI = function () {
         const capacityInput = document.getElementById('calc-capacity');
         const billInput = document.getElementById('calc-bill');
@@ -1254,6 +1271,17 @@
             en: "Cumulative Savings Over Time (Million VND)", 
             zh: "不同时期的累计收益对比 (百万越盾)" 
         },
+        
+        "Quy mô dự án mẫu:": { en: "Sample Project Scale:", zh: "示范项目规模:" },
+        "Doanh Nghiệp Nhỏ": { en: "Small Business", zh: "小型企业" },
+        "Nhà Máy Vừa": { en: "Medium Factory", zh: "中型工厂" },
+        "Nhà Máy Lớn": { en: "Large Factory", zh: "大型工厂" },
+        "15 kWp - 10 Tr/tháng": { en: "15 kWp - 10 M/month", zh: "15 kWp - 10百万越盾/月" },
+        "100 kWp - 50 Tr/tháng": { en: "100 kWp - 50 M/month", zh: "100 kWp - 50百万越盾/月" },
+        "500 kWp - 200 Tr/tháng": { en: "500 kWp - 200 M/month", zh: "500 kWp - 2亿越盾/月" },
+        "1500 kWp - 600 Tr/tháng": { en: "1500 kWp - 600 M/month", zh: "1500 kWp - 6亿越盾/月" },
+        "Công suất (kWp):": { en: "Capacity (kWp):", zh: "装机容量 (kWp):" },
+        "Tiền điện (Tr/tháng):": { en: "Electricity Bill (M VND/month):", zh: "月度电费 (百万越盾/月):" },
         
         // Form Placeholders & Labels
         "Họ và Tên *": { en: "Full Name *", zh: "姓名 *" },
