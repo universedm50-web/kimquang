@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 //  SOLAR DEMO — MAIN SCRIPT
 // ============================================================
 (function () {
@@ -116,16 +116,25 @@
     // ============================================================
     //  SPA NAVIGATION
     // ============================================================
-    window.navigateTo = function (pageId) {
+    window.navigateTo = function (pageId, targetId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         const target = document.getElementById('page-' + pageId);
         if (!target) return;
         target.classList.add('active');
         initReveal(target);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
         document.querySelectorAll('.nav-link[data-page]').forEach(a => {
             a.classList.toggle('active', a.dataset.page === pageId);
         });
+        if (targetId) {
+            setTimeout(() => {
+                const scrollTarget = document.getElementById(targetId);
+                if (scrollTarget) {
+                    scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 100);
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     };
 
     // ── Mobile Menu ──────────────────────────────────────────

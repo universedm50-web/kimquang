@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -50,11 +50,12 @@
                 <li class="has-dropdown">
                     <a href="javascript:void(0)" class="nav-link" onclick="navigateTo('solutions')">Giải Pháp <i class="fa-solid fa-chevron-down fa-xs"></i></a>
                     <div class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('solutions')"><i class="fa-solid fa-industry"></i> Doanh nghiệp &amp; Nhà máy</a>
-                        <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('solutions')"><i class="fa-solid fa-house-chimney"></i> Hộ Gia Đình</a>
-                        <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('solutions')"><i class="fa-solid fa-tractor"></i> Nông Nghiệp</a>
+                        <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('solutions', 'sol-commercial')"><i class="fa-solid fa-industry"></i> Doanh nghiệp &amp; Nhà máy</a>
+                        <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('solutions', 'sol-residential')"><i class="fa-solid fa-house-chimney"></i> Hộ Gia Đình</a>
+                        <a href="javascript:void(0)" class="dropdown-item" onclick="navigateTo('solutions', 'sol-agriculture')"><i class="fa-solid fa-tractor"></i> Nông Nghiệp</a>
                     </div>
                 </li>
+                <li><a href="javascript:void(0)" class="nav-link" data-page="investment" onclick="navigateTo('investment')">Đầu Tư Môi Giới</a></li>
                 <li><a href="javascript:void(0)" class="nav-link" data-page="projects" onclick="navigateTo('projects')">Dự Án</a></li>
                 <li><a href="javascript:void(0)" class="nav-link" data-page="news" onclick="navigateTo('news')">Tin Tức</a></li>
                 <li><a href="javascript:void(0)" class="nav-link" data-page="contact" onclick="navigateTo('contact')">Liên Hệ</a></li>
@@ -358,7 +359,7 @@
         </div>
         <div class="container section-pad">
             <div class="sol-detail-grid">
-                <div class="sol-detail-card reveal-up">
+                <div class="sol-detail-card reveal-up" id="sol-commercial">
                     <img src="images/solar_project_1.jpg" alt="Doanh nghiệp">
                     <div class="sol-detail-body">
                         <div class="sol-icon"><i class="fa-solid fa-industry"></i></div>
@@ -372,7 +373,7 @@
                         <button class="btn-primary" onclick="navigateTo('contact')">Nhận Tư Vấn Miễn Phí</button>
                     </div>
                 </div>
-                <div class="sol-detail-card reveal-up delay-1">
+                <div class="sol-detail-card reveal-up delay-1" id="sol-residential">
                     <img src="images/solar_project_2.jpg" alt="Hộ gia đình">
                     <div class="sol-detail-body">
                         <div class="sol-icon"><i class="fa-solid fa-house-chimney"></i></div>
@@ -386,7 +387,7 @@
                         <button class="btn-primary" onclick="navigateTo('contact')">Nhận Tư Vấn Miễn Phí</button>
                     </div>
                 </div>
-                <div class="sol-detail-card reveal-up delay-2">
+                <div class="sol-detail-card reveal-up delay-2" id="sol-agriculture">
                     <img src="images/solar_project_3.jpg" alt="Nông nghiệp">
                     <div class="sol-detail-body">
                         <div class="sol-icon"><i class="fa-solid fa-tractor"></i></div>
@@ -398,6 +399,66 @@
                             <div class="spec"><span class="spec-key">Lợi ích</span><span class="spec-val">Kép (điện + nông)</span></div>
                         </div>
                         <button class="btn-primary" onclick="navigateTo('contact')">Nhận Tư Vấn Miễn Phí</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PAGE: INVESTMENT ===== -->
+    <div class="page" id="page-investment">
+        <div class="page-hero bg-blue-grad" style="background: linear-gradient(135deg, #1e3a8a, #0d9488);">
+            <div class="container">
+                <div class="breadcrumb"><span onclick="navigateTo('home')">Trang chủ</span> <i class="fa-solid fa-chevron-right fa-xs"></i> <span>Đầu Tư Môi Giới</span></div>
+                <h1 class="page-hero-title">Đầu Tư &amp; Môi Giới</h1>
+                <p>Cơ hội đầu tư xanh — Tối ưu hóa dòng tiền và hiệu quả tài chính.</p>
+            </div>
+        </div>
+        <div class="container section-pad">
+            <div class="sol-detail-grid">
+                <!-- Mô hình 1 -->
+                <div class="sol-detail-card reveal-up">
+                    <img src="images/investment_esco.jpg" alt="Giải pháp ESCO/PPA">
+                    <div class="sol-detail-body">
+                        <div class="sol-icon"><i class="fa-solid fa-file-contract"></i></div>
+                        <h2>Giải Pháp ESCO / PPA (Power Purchase Agreement)</h2>
+                        <p>Giải pháp tối ưu nhằm loại bỏ hoàn toàn rào cản chi phí đầu tư ban đầu (CAPEX) cho doanh nghiệp. GreenTech Solar cùng đối tác tài chính sẽ đầu tư 100% hệ thống, doanh nghiệp chỉ cần mua lại điện sạch với giá ưu đãi chiết khấu cao so với giá của EVN.</p>
+                        <div class="sol-specs">
+                            <div class="spec"><span class="spec-key">Vốn đầu tư (CAPEX)</span><span class="spec-val">0 VNĐ (Doanh nghiệp)</span></div>
+                            <div class="spec"><span class="spec-key">Hình thức</span><span class="spec-val">Hợp đồng PPA / ESCO</span></div>
+                            <div class="spec"><span class="spec-key">Lợi ích kinh tế</span><span class="spec-val">Tiết kiệm 10% - 25% hóa đơn điện</span></div>
+                        </div>
+                        <button class="btn-primary" onclick="navigateTo('contact')">Nhận Tư Vấn Phương Án <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                <!-- Mô hình 2 -->
+                <div class="sol-detail-card reveal-up delay-1">
+                    <img src="images/investment_broker.jpg" alt="Môi giới Quỹ tín dụng xanh">
+                    <div class="sol-detail-body">
+                        <div class="sol-icon"><i class="fa-solid fa-handshake-simple"></i></div>
+                        <h2>Môi Giới &amp; Kết Nối Quỹ Tín Dụng Xanh</h2>
+                        <p>Đóng vai trò Broker chuyên nghiệp kết nối các dự án điện mặt trời tiềm năng với các Quỹ tín dụng xanh uy tín toàn cầu. Chúng tôi thực hiện thẩm định dự án (Technical &amp; Financial Due Diligence) và cấu trúc dòng tiền bài bản nhằm đảm bảo tỷ suất hoàn vốn nội bộ (IRR) và hiệu quả đầu tư (ROI) tối ưu cho các nhà đầu tư lớn.</p>
+                        <div class="sol-specs">
+                            <div class="spec"><span class="spec-key">Vai trò cốt lõi</span><span class="spec-val">Broker &amp; Cấu trúc tài chính</span></div>
+                            <div class="spec"><span class="spec-key">Chỉ số tài chính</span><span class="spec-val">IRR mục tiêu 15% - 18%</span></div>
+                            <div class="spec"><span class="spec-key">Nguồn vốn</span><span class="spec-val">Quỹ đầu tư &amp; Tín dụng xanh</span></div>
+                        </div>
+                        <button class="btn-primary" onclick="navigateTo('contact')">Kết Nối Với Chuyên Gia <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                <!-- Mô hình 3 -->
+                <div class="sol-detail-card reveal-up delay-2">
+                    <img src="images/investment_epc.jpg" alt="Đòn bẩy tài chính EPC & O&M">
+                    <div class="sol-detail-body">
+                        <div class="sol-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <h2>Tối Ưu Đòn Bẩy EPC &amp; Dịch Vụ Vận Hành O&amp;M</h2>
+                        <p>Tận dụng đòn bẩy tài chính và uy tín kỹ thuật làm lợi thế cạnh tranh cốt lõi để chốt trọn gói các hợp đồng Tổng thầu EPC và Dịch vụ vận hành bảo dưỡng (O&amp;M). Chúng tôi cam kết bảo hành hiệu suất hệ thống trên 25 năm, tối đa hóa sản lượng điện phát ra và bảo toàn giá trị tài sản dài hạn.</p>
+                        <div class="sol-specs">
+                            <div class="spec"><span class="spec-key">Dịch vụ trọn gói</span><span class="spec-val">EPC + O&amp;M trọn đời</span></div>
+                            <div class="spec"><span class="spec-key">Đòn bẩy tài chính</span><span class="spec-val">Bảo lãnh thanh toán &amp; Hỗ trợ vay</span></div>
+                            <div class="spec"><span class="spec-key">Bảo đảm vận hành</span><span class="spec-val">O&amp;M giám sát 24/7 realtime</span></div>
+                        </div>
+                        <button class="btn-primary" onclick="navigateTo('contact')">Đăng Ký Khảo Sát <i class="fa-solid fa-arrow-right"></i></button>
                     </div>
                 </div>
             </div>
@@ -991,6 +1052,7 @@
                 <h5>Công Ty</h5>
                 <ul>
                     <li><a href="javascript:void(0)" onclick="navigateTo('about')">Về chúng tôi</a></li>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('investment')">Đầu tư &amp; Môi giới</a></li>
                     <li><a href="javascript:void(0)" onclick="navigateTo('projects')">Dự án tiêu biểu</a></li>
                     <li><a href="javascript:void(0)" onclick="navigateTo('contact')">Liên hệ</a></li>
                 </ul>
