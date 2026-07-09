@@ -157,7 +157,7 @@
     // ============================================================
     //  PRODUCT DATA
     // ============================================================
-    const IMG = 'file:///C:/Users/vu.dominh/.gemini/antigravity/brain/ba387e05-658a-4847-88f5-de24446ce750/';
+    const IMG = 'images/';
     const PRODUCTS = {
         'panel-jinko-n72': {
             brand: 'JinkoSolar', name: 'Tấm Pin N-Type Tiger Neo 580W', code: 'JKM-580N-72HL4',
